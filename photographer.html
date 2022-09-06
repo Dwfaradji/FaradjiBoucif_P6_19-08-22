@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link href="css/style.css" rel="stylesheet" type="text/css" />
+  <meta charset="utf-8">
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <link href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css"
+    integrity="sha384-Bfad6CLCknfcloXFOyFnlgtENryhrpZCe29RTifKEixXQZ38WheV+i/6YWSzkz3V" crossorigin="anonymous" />
+  <title>Fisheye - photographe </title>
+</head>
+
+<body>
+  <header>
+    <a href="index.html" class="href"> <img src="assets/images/logo.png" class="logo" /></a>
+  </header>
+  <main id="main">
+    <section class="photograph-header">
+    </section>
+    <div class="filter">
+      <p>Trier par :</p>
+      <button id="buttonFilter" class="button-filter">
+        Populaire<i class="fas fa-chevron-down chevron-down"></i>
+      </button>
+      <ul id="filterList" class="photographMedias__filtersMenu--list displayNone">
+        <li id="filter_popular">Popularité </li>
+        <li id="filter_date"> Date</li>
+        <li id="filter_title"> Titre</li>
+      </ul>
+    </div>
+    <section class="container-media">
+    </section>
+    <div id="container-carousel">
+    </div>
+
+
+    <!-- Fin du HTML a injecter Selection -->
+
+  </main>
+  <div id="contact_modal">
+    <div class="modal">
+      <header>
+        <h2>Contactez-moi</h2>
+        <img src="assets/icons/close.svg" onclick="closeModal()" />
+      </header>
+      <p id="contact-name"></p>
+      <form id="form-contact">
+        <div>
+          <label for="prenon">Prénom</label>
+          <input type="text" id="prenon">
+          <label for="nom">Nom</label>
+          <input type="text" id="nom" />
+          <label for="email">Email</label>
+          <input type="text" id="email" />
+          <label for="message">Votre Message</label>
+          <textarea name="message" id="message" cols="30" rows="10"></textarea>
+        </div>
+        <button id="btn-envoyer" class="contact_button" onclick="closeModal()">Envoyer</button>
+      </form>
+    </div>
+
+  </div>
+  <script type="module" src="/scripts/pages/photographer.js"></script>
+  <script src="/scripts/utils/contactForm.js"></script>
+</body>
+
+</html>

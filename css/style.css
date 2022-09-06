@@ -1,0 +1,88 @@
+@import url("photographer.css");
+
+body {
+    font-family: "DM Sans", sans-serif;
+    margin: 0;
+}
+
+
+header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 90px;
+}
+
+h1 {
+    color: #901C1C;
+    /* margin-right: 100px; */
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+.logo {
+    height: 50px;
+    margin-left: 100px;
+}
+
+.photographer_section {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 70px;
+    margin-top: 100px;
+}
+
+.photographer_section article {
+    justify-self: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+}
+
+.photographer_section article h2 {
+    color: #D3573C;
+    font-size: 36px;
+    white-space: nowrap;
+    margin-bottom: 5px;
+
+}
+
+.photographer_section article img {
+    height: 200px;
+    width: 200px;
+    border-radius: 100px;
+    object-fit: cover;
+}
+
+
+.photographer_section article p {
+    margin: 5px;
+}
+
+.locality {
+    color: #901C1C;
+}
+
+.color-text-secondaire {
+    color: #525252;
+}
+
+@media (max-width: 1033px) {
+    .photographer_section {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 730px) {
+    .photographer_section {
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+}

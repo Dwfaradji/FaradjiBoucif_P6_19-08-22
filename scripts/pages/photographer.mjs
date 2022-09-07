@@ -1,8 +1,8 @@
 "use strict";
 //Mettre le code JavaScript lié à la page photographer.html
-import data from "../utils/dataPhotographe.js";
-import getHeaderDOM from "../composant/header.js";
-import getFormContact from "../composant/formulaire.js";
+import data from "../utils/dataPhotographe.mjs";
+import getHeaderDOM from "../composant/header.mjs";
+import getFormContact from "../composant/formulaire.mjs";
 
 const dataInfoPhotographe = await data();
 const infoPhotographes = dataInfoPhotographe.photographers;
@@ -17,6 +17,7 @@ const getIdPhotographe = urlSearchParams.get("id");
 // Variables  array stock les info recupérer
 let arrayMedia = [];
 let arrayInfo = [];
+let totalLikes = 0;
 
 // Va récupérer Id du photographe recupérer dans url et va le comparer au fichier .json
 // et recuperera les informations du photographe et va le stocker dans un tableau
@@ -33,20 +34,32 @@ function getInfoPhotographes(media, array) {
     }
   });
 }
-const info = arrayInfo[0];
 
+const info = arrayInfo[0];
+//ELEMENT DOM
+const buttonFilter = document.getElementById("buttonFilter");
+const getCarousselDom = document.getElementById("container-carousel");
+const getDomArticle = document.querySelectorAll(".card-media img");
+const containerMedia = document.getElementById("container-media");
+const getfilterPopulaire = document.getElementById("filter_popular");
+const getfilterDate = document.getElementById("filter_date");
+const getfilterTitle = document.getElementById("filter_title");
+const filterList = document.getElementById("filterList");
+
+// const cardMedia = document.getElementById("container-media");
 getHeaderDOM(info);
 //Formulaire
 getFormContact(info);
+addEventBtnFilter();
+addEventCloseFilter();
 
 // addEventListener sur le boutton filtre
-const buttonFilter = document.getElementById("buttonFilter");
+
 function addEventBtnFilter() {
   buttonFilter.addEventListener("click", (e) => {
     e.preventDefault();
     const filterList = document.getElementById("filterList");
     filterList.style.display = "block";
-    buttonFilter.style.display = "none";
   });
 }
 //  addEventListener sur main pour fermer le boutton filtre
@@ -56,18 +69,17 @@ function addEventCloseFilter() {
     e.preventDefault();
     if (e.target.id !== "buttonFilter") {
       const filterList = document.getElementById("filterList");
+      console.log(e.target);
       filterList.style.display = "none";
       buttonFilter.style.display = "block";
     }
   });
 }
-addEventBtnFilter();
-addEventCloseFilter();
 
+// let filter = new FilterCard();
 // ELEMENT DOM ===================================================================++++++
-class displayDom {
+class DisplayDom {
   constructor() {
-    this.cardMedia = document.querySelector(".container-media");
     this.itemCard = arrayMedia.map((element) => {
       this.displayCardDom(
         element,
@@ -79,6 +91,7 @@ class displayDom {
       );
       return element;
     });
+
     this.displayCarousel();
   }
 
@@ -92,8 +105,8 @@ class displayDom {
     );
     // Placer le resultat likes
     this.legende.innerHTML = ` 
-    ${title} <strong class="likes">${likes}</strong>
-    <span id="${id}" class="icon-like"><i class="far fa-heart"></i></span></figcaption>`;
+        ${title} <strong class="likes">${likes}</strong>
+        <span id="${id}" class="icon-like"><i class="far fa-heart"></i></span></figcaption>`;
 
     if (element.image) {
       this.displayPicure(image);
@@ -103,33 +116,34 @@ class displayDom {
       this.children.appendChild(this.video);
       this.video.appendChild(this.source);
     }
-    this.cardMedia.appendChild(this.root);
+    containerMedia.appendChild(this.root);
     this.root.appendChild(this.children);
     this.children.appendChild(this.legende);
   }
   displayPicure(image) {
     let imgCard = `./assets/Sample Photos/${info.name}/${image}`;
-    this.picture = this.createBaliseWithClass("img", imgCard, "src", "alt");
+    this.picture = this.createBaliseWithClass("img", imgCard, "src");
+    this.picture.setAttribute("alt", "");
   }
   displayVideo(video) {
     let videoCard = `./assets/Sample Photos/${info.name}/${video}`;
     this.video = this.createBaliseWithClass("video", "", "controls", "");
     this.source = this.createBaliseWithClass("source", videoCard, "src", "");
+    this.source.setAttribute("type", "video/mp4");
   }
 
   displayCarousel() {
-    const getCarousselDom = document.querySelector("#container-carousel");
     this.itemCard.forEach((element) => {
       this.item = this.createBaliseWithClass("div", "item", "class");
       this.legendeCarousel = this.createBaliseWithClass(
-        "p",
+        "h2",
         "carousel-sous-titre",
         "class"
       );
       this.legendeCarousel.innerHTML = element.title;
 
       if (element.image) {
-        this.displayPicure(element.image);
+        this.displayPicure(element.image, element.title);
         this.item.appendChild(this.picture);
       } else if (element.video) {
         this.displayVideo(element.video);
@@ -147,8 +161,69 @@ class displayDom {
     return balise;
   }
 }
-new displayDom();
+new DisplayDom();
 
+// FILTER ========================================================================++++
+class FilterCard {
+  constructor() {
+    this.btnFilter();
+  }
+
+  deleteDom() {
+    while (containerMedia.firstChild) {
+      containerMedia.removeChild(containerMedia.firstChild);
+    }
+  }
+  btnFilter() {
+    // this.deleteDom();
+    getfilterPopulaire.addEventListener(
+      "click",
+      this.filterPopulaire.bind(this)
+    );
+    getfilterDate.addEventListener("click", this.filterDate.bind(this));
+    getfilterTitle.addEventListener("click", this.filterTitle.bind(this));
+  }
+  filterPopulaire() {
+    // debugger;
+    console.log("test");
+    arrayMedia = this.triePopulaire();
+    this.deleteDom();
+    new DisplayDom();
+  }
+  filterDate() {
+    arrayMedia = this.trieDate();
+    this.deleteDom();
+    new DisplayDom();
+  }
+  filterTitle() {
+    arrayMedia = this.trieTitle();
+    this.deleteDom();
+    new DisplayDom();
+  }
+
+  triePopulaire() {
+    const arrayPopulaire = arrayMedia.sort(function (a, b) {
+      return b.likes - a.likes;
+    });
+    return arrayPopulaire;
+  }
+  trieDate() {
+    const arrayDate = arrayMedia.sort(function (a, b) {
+      return new Date(b.date) - new Date(a.date);
+    });
+    return arrayDate;
+  }
+  trieTitle() {
+    const arrayTitle = arrayMedia.sort(function (a, b) {
+      return a.title.localeCompare(b.title);
+    });
+    return arrayTitle;
+  }
+}
+
+new FilterCard();
+
+/**@TODO les images se repete lorsque je trie mes cards */
 // CAROUSEL======================================================================+++++++
 class Carousel {
   /**
@@ -160,12 +235,13 @@ class Carousel {
    */
 
   constructor(element, options = {}) {
+    getCarousselDom.style.display = "block";
     this.element = element;
     this.options = Object.assign(
       {},
       {
-        slidesToScroll: 3,
-        slidesVisible: 3,
+        slidesToScroll: 1,
+        slidesVisible: 1,
         loop: false,
       },
       options
@@ -174,6 +250,8 @@ class Carousel {
     this.currentItem = 0;
     this.root = this.createDivWithClass("carousel");
     this.container = this.createDivWithClass("carousel-container");
+    this.root.setAttribute("tabindex", "0");
+
     let children = [].slice.call(element.children);
 
     // boucle sur les image et supprime les doublons
@@ -188,10 +266,20 @@ class Carousel {
     });
     this.setStyle();
     this.createNavigation();
+    this.root.addEventListener("keyup", (e) => {
+      console.log(e.key);
+      if (e.key === "ArrowRight") {
+        this.next();
+      } else if (e.key === "ArrowLeft") {
+        this.prev();
+      }
+    });
   }
+
   /**
    * Applique les bonnes dimmensions aux elements du carousel
    */
+
   setStyle() {
     let ratio = this.items.length / this.options.slidesVisible;
     this.container.style.width = ratio * 100 + "%";
@@ -248,80 +336,21 @@ class Carousel {
     return div;
   }
 }
+/**@TODO display block n'est pas gérer sur les filtres */
+const getDomArticle2 = document.querySelectorAll(".card-media figure img");
+getDomArticle2.forEach((element) => {
+  element.addEventListener("click", () => {
+    console.log("testeur");
 
-const getCarousselDom = document.querySelector("#container-carousel");
-const getDomArticle = document.querySelectorAll(".card-media img");
-getDomArticle.forEach((element) => {
-  element.addEventListener("click", (e) => {
-    getCarousselDom.style.display = "block";
-    new Carousel(document.querySelector("#container-carousel"), {
+    new Carousel(document.getElementById("container-carousel"), {
       slidesToScroll: 1,
       slidesVisible: 1,
     });
   });
 });
 
-// FILTER ========================================================================++++
-class filterCard {
-  constructor() {
-    this.btnFilter();
-  }
-  deleteDom() {
-    var element = document.querySelector(".container-media");
-    while (element.firstChild) {
-      element.removeChild(element.firstChild);
-    }
-  }
-  btnFilter() {
-    this.deleteDom();
-    const getfilterPopulaire = document.getElementById("filter_popular");
-    const getfilterDate = document.getElementById("filter_date");
-    const getfilterTitle = document.getElementById("filter_title");
-    getfilterPopulaire.addEventListener(
-      "click",
-      this.filterPopulaire.bind(this)
-    );
-    getfilterDate.addEventListener("click", this.filterDate.bind(this));
-    getfilterTitle.addEventListener("click", this.filterTitle.bind(this));
-  }
-  filterPopulaire() {
-    arrayMedia = this.triePopulaire();
-  }
-  filterDate() {
-    arrayMedia = this.trieDate();
-  }
-  filterTitle() {
-    arrayMedia = this.trieTitle();
-  }
-
-  triePopulaire() {
-    const arrayPopulaire = arrayMedia.sort(function (a, b) {
-      return b.likes - a.likes;
-    });
-    return arrayPopulaire;
-  }
-  trieDate() {
-    const arrayDate = arrayMedia.sort(function (a, b) {
-      return new Date(b.date) - new Date(a.date);
-    });
-    return arrayDate;
-  }
-  trieTitle() {
-    const arrayTitle = arrayMedia.sort(function (a, b) {
-      return a.title.localeCompare(b.title);
-    });
-    return arrayTitle;
-  }
-}
-const filterList = document.getElementById("filterList");
-filterList.addEventListener("click", () => {
-  debugger;
-  new filterCard();
-  new displayDom();
-});
-
 // LIKES ==========================================================================++++
-let totalLikes = 0;
+
 class Likes {
   /**
    * @params {HTMLElement} card
@@ -365,12 +394,12 @@ class Likes {
 }
 
 const getLikeIcon = document.querySelectorAll(".icon-like");
-console.log(getLikeIcon);
 getLikeIcon.forEach((icon) => {
   icon.addEventListener("click", (event) => {
     new Likes(icon, event);
   });
 });
+
 function countTotalLikes() {
   arrayMedia.forEach((element) => {
     const likes = element.likes;
@@ -396,3 +425,41 @@ class BoxInfo {
   }
 }
 new BoxInfo();
+
+// function dom() {
+//   new DisplayDom();
+//   // filter();
+//   carousel();
+//   like();
+//   new BoxInfo();
+// }
+// dom();
+// let test = new DisplayDom();
+// function filter() {
+//   filterList.addEventListener("click", () => {
+//     new FilterCard();
+//     test;
+//   });
+// }
+
+function like() {
+  const getLikeIcon = document.querySelectorAll(".icon-like");
+  getLikeIcon.forEach((icon) => {
+    icon.addEventListener("click", (event) => {
+      new Likes(icon, event);
+    });
+  });
+}
+
+function carousel() {
+  const getDomArticle2 = document.querySelectorAll(".card-media img");
+  getDomArticle2.forEach((element) => {
+    element.addEventListener("click", () => {
+      getCarousselDom.style.display = "block";
+      new Carousel(document.getElementById("container-carousel"), {
+        slidesToScroll: 1,
+        slidesVisible: 1,
+      });
+    });
+  });
+}

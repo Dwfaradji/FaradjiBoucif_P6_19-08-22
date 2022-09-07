@@ -8,7 +8,7 @@ export default function getHeaderDOM(info) {
     <p class="color-text-secondaire">  ${info.tagline} </p>
   </div>
   <button class="contact_button" onclick="displayModal()">Contactez-moi</button>
-  <img src="${picturePhotographe}" alt=""> 
+  <img src="${picturePhotographe}" alt="${info.name} "> 
 `;
   return;
 }

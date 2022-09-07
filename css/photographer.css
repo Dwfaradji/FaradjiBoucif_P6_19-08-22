@@ -155,19 +155,17 @@ textarea {
     justify-content: space-around;
 }
 
-.container-media {
+#container-media {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between
 }
 
-.container-media article {
+#container-media article {
     margin: 10px
 }
 
 .icon-like {
-
-
     color: #901C1C !important;
     cursor: pointer;
     transition: transform 0.3s;

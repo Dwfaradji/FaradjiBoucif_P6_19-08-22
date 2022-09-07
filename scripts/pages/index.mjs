@@ -1,5 +1,6 @@
-import photographerFactory from "../factories/photographer.js";
-import data from "../utils/dataPhotographe.js";
+
+import photographerFactory from "../factories/photographer.mjs";
+import data from "../utils/dataPhotographe.mjs";
 
 async function getPhotographers() {
   // Penser à remplacer par les données récupérées dans le json

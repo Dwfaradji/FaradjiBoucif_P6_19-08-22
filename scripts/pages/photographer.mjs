@@ -36,22 +36,19 @@ function getInfoPhotographes(media, array) {
 
 const info = arrayInfo[0];
 //ELEMENT DOM
-const buttonFilter = document.getElementById("buttonFilter");
 const getCarousselDom = document.getElementById("container-carousel");
-// const getDomArticle = document.querySelectorAll(".card-media img");
 const containerMedia = document.getElementById("container-media");
 const getfilterPopulaire = document.getElementById("filter_popular");
 const getfilterDate = document.getElementById("filter_date");
 const getfilterTitle = document.getElementById("filter_title");
-const filterList = document.getElementById("filterList");
 // Block info du photographe
 getHeaderDOM(info);
 //Formulaire
 getFormContact(info);
 
 eventBtnFilter();
+/**@TODO Ouvre le boutton filter et le referme  */
 
-// AddEventListener sur main pour fermer ou ouvrir la liste des filtres
 function eventBtnFilter() {
   const exitFilter = document.querySelector("main");
   const filterList = document.getElementById("filterList");
@@ -65,11 +62,12 @@ function eventBtnFilter() {
   });
 }
 
+
+/**@TODO Construit les élements du dom  */
 // ELEMENT DOM ===================================================================++++++
 class DisplayDom {
   constructor() {
     this.itemCard = arrayMedia.map((element) => {
-      console.log(element.video);
       this.displayCardDom(
         element,
         element.image,
@@ -86,12 +84,12 @@ class DisplayDom {
 
   /**
    *
-   * @params {Object} element - object des info de la card
-   * @params {String} image - Nom de l'image + extension
-   * @params {String} video - Non de la video + extension
-   * @params {String} title - Titre de l'image
-   * @params {Number} likes - Nombre de like
-   * @params {Number} id - id de la card
+   * @param {Object} element - object des info de la card
+   * @param {String} image - Nom de l'image + extension
+   * @param {String} video - Non de la video + extension
+   * @param {String} title - Titre de l'image
+   * @param {Number} likes - Nombre de like
+   * @param {Number} id - id de la card
    */
   displayCardDom(element, image, video, title, likes, id) {
     this.root = this.createBaliseWithClass("article", "card-media", "class");
@@ -138,8 +136,7 @@ class DisplayDom {
         "class"
       );
       this.legendeCarousel.innerHTML = element.title;
-      this.item.appendChild(this.legendeCarousel);
-      getCarousselDom.appendChild(this.item);
+
       if (element.image) {
         this.displayPicure(element.image, element.title);
         this.item.appendChild(this.picture);
@@ -148,13 +145,15 @@ class DisplayDom {
         this.item.appendChild(this.video);
         this.video.appendChild(this.source);
       }
+      this.item.appendChild(this.legendeCarousel);
+      getCarousselDom.appendChild(this.item);
     });
   }
   /**
    *
-   * @params {String} createElement
-   * @params {String} className
-   * @params {String} attribute
+   * @param {String} createElement
+   * @param {String} className
+   * @param {String} attribute
    * @returns {HTMLElement}
    */
   createBaliseWithClass(createElement, className, attribute) {
@@ -165,6 +164,8 @@ class DisplayDom {
 }
 new DisplayDom();
 
+
+/**@TODO Trie les cards lorsqu'on clic sur les options du filtre avec la methode sort */
 // FILTER ========================================================================++++
 class FilterCard {
   constructor() {
@@ -233,11 +234,11 @@ new FilterCard();
 // CAROUSEL======================================================================+++++++
 class Carousel {
   /**
-   * @params {HTMLElement} element
-   * @params {Object} options
-   * @params {Object} options.slidesToScroll nombres d'element a faire défiler
-   * @params {Object} options.slidesVisible nombres d'element visible dans le slide
-   * @params {boolean} options.loop doit-on boucler en fin de carousel
+   * @param {HTMLElement} element
+   * @param {Object} options
+   * @param {Object} options.slidesToScroll nombres d'element a faire défiler
+   * @param {Object} options.slidesVisible nombres d'element visible dans le slide
+   * @param {boolean} options.loop doit-on boucler en fin de carousel
    */
 
   constructor(element, options = {}) {
@@ -315,7 +316,7 @@ class Carousel {
   }
   /**
    * Déplace le carousel vers l'élément ciblé
-   * @params {number} index
+   * @param {number} index
    */
   gotoItem(index) {
     if (index < 0) {
@@ -331,8 +332,8 @@ class Carousel {
     this.currentItem = index;
   }
   /**
-   * @params {string} className
-   * @returns{HTMLElement}
+   * @param {string} className
+   * @return {HTMLElement}
    *
    */
   createDivWithClass(className) {
@@ -341,10 +342,11 @@ class Carousel {
     return div;
   }
 }
-
+/** @TODO  Cible la card clicker et va ouvrir le carousel et lire la class Carousel */
 const getDomArticle = document.querySelectorAll(".card-media figure img");
 getDomArticle.forEach((element) => {
-  element.addEventListener("click", () => {
+  element.addEventListener("click", (e) => {
+    console.log(e);
     getCarousselDom.style.display = "block";
     new Carousel(getCarousselDom),
       {
@@ -357,8 +359,8 @@ getDomArticle.forEach((element) => {
 // LIKES ==========================================================================++++
 class Likes {
   /**
-   * @params {HTMLElement} card
-   * @params {EventListener} event
+   * @param {HTMLElement} card - element htm qui cible les icones likes clicker
+   * @param {EventListener} event - ecouteur d'evenement sur la class  icon-likes
    */
   constructor(card, event) {
     this.targetIdCard = card.id;
@@ -374,7 +376,7 @@ class Likes {
     this.numberLikes = this.target.path[2].children[0];
     this.numberLikes.innerHTML = this.updateLikes.toString();
   }
-  
+
   updateTotalLike() {
     const getBoxInfo = document.querySelector(".total-likes");
     getBoxInfo.innerHTML = totalLikes.toString();

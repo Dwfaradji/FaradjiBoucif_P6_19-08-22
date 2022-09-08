@@ -1,9 +1,11 @@
 "use strict";
 //Mettre le code JavaScript lié à la page photographer.html
+//Import
 import data from "../utils/dataPhotographe.mjs";
 import getHeaderDOM from "../composant/header.mjs";
 import getFormContact from "../composant/formulaire.mjs";
 
+// Récupere les datas du photographe et les medias
 const dataInfoPhotographe = await data();
 const infoPhotographes = dataInfoPhotographe.photographers;
 const mediaPhotographes = dataInfoPhotographe.media;
@@ -13,7 +15,7 @@ const urlId = window.location.search;
 //- Extraction de l'Id
 const urlSearchParams = new URLSearchParams(urlId);
 //- Récupere id photographe
-const getIdPhotographe = urlSearchParams.get("id");
+const getUrlId = urlSearchParams.get("id");
 // Variables  array stock les info recupérer
 let arrayMedia = [];
 let arrayInfo = [];
@@ -26,10 +28,7 @@ getInfoPhotographes(mediaPhotographes, arrayMedia);
 getInfoPhotographes(infoPhotographes, arrayInfo);
 function getInfoPhotographes(media, array) {
   media.forEach((info) => {
-    if (
-      info.photographerId == getIdPhotographe ||
-      info.id == getIdPhotographe
-    ) {
+    if (info.photographerId == getUrlId || info.id == getUrlId) {
       array.push(info);
     }
   });
@@ -39,48 +38,38 @@ const info = arrayInfo[0];
 //ELEMENT DOM
 const buttonFilter = document.getElementById("buttonFilter");
 const getCarousselDom = document.getElementById("container-carousel");
-const getDomArticle = document.querySelectorAll(".card-media img");
+// const getDomArticle = document.querySelectorAll(".card-media img");
 const containerMedia = document.getElementById("container-media");
 const getfilterPopulaire = document.getElementById("filter_popular");
 const getfilterDate = document.getElementById("filter_date");
 const getfilterTitle = document.getElementById("filter_title");
 const filterList = document.getElementById("filterList");
-
-// const cardMedia = document.getElementById("container-media");
+// Block info du photographe
 getHeaderDOM(info);
 //Formulaire
 getFormContact(info);
-addEventBtnFilter();
-addEventCloseFilter();
 
-// addEventListener sur le boutton filtre
+eventBtnFilter();
 
-function addEventBtnFilter() {
-  buttonFilter.addEventListener("click", (e) => {
-    e.preventDefault();
-    const filterList = document.getElementById("filterList");
-    filterList.style.display = "block";
-  });
-}
-//  addEventListener sur main pour fermer le boutton filtre
-function addEventCloseFilter() {
+// AddEventListener sur main pour fermer ou ouvrir la liste des filtres
+function eventBtnFilter() {
   const exitFilter = document.querySelector("main");
+  const filterList = document.getElementById("filterList");
   exitFilter.addEventListener("click", (e) => {
     e.preventDefault();
     if (e.target.id !== "buttonFilter") {
-      const filterList = document.getElementById("filterList");
-      console.log(e.target);
       filterList.style.display = "none";
-      buttonFilter.style.display = "block";
+    } else {
+      filterList.style.display = "block";
     }
   });
 }
 
-// let filter = new FilterCard();
 // ELEMENT DOM ===================================================================++++++
 class DisplayDom {
   constructor() {
     this.itemCard = arrayMedia.map((element) => {
+      console.log(element.video);
       this.displayCardDom(
         element,
         element.image,
@@ -95,6 +84,15 @@ class DisplayDom {
     this.displayCarousel();
   }
 
+  /**
+   *
+   * @params {Object} element - object des info de la card
+   * @params {String} image - Nom de l'image + extension
+   * @params {String} video - Non de la video + extension
+   * @params {String} title - Titre de l'image
+   * @params {Number} likes - Nombre de like
+   * @params {Number} id - id de la card
+   */
   displayCardDom(element, image, video, title, likes, id) {
     this.root = this.createBaliseWithClass("article", "card-media", "class");
     this.children = this.createBaliseWithClass("figure", "figure-box", "class");
@@ -103,10 +101,9 @@ class DisplayDom {
       "legende-box",
       "class"
     );
-    // Placer le resultat likes
     this.legende.innerHTML = ` 
-        ${title} <strong class="likes">${likes}</strong>
-        <span id="${id}" class="icon-like"><i class="far fa-heart"></i></span></figcaption>`;
+        ${title} <span class="likes"> <strong >${likes}</strong>
+        <span id="${id}" class="icon-like"><i class="far fa-heart"></i></span>`;
 
     if (element.image) {
       this.displayPicure(image);
@@ -141,7 +138,8 @@ class DisplayDom {
         "class"
       );
       this.legendeCarousel.innerHTML = element.title;
-
+      this.item.appendChild(this.legendeCarousel);
+      getCarousselDom.appendChild(this.item);
       if (element.image) {
         this.displayPicure(element.image, element.title);
         this.item.appendChild(this.picture);
@@ -150,11 +148,15 @@ class DisplayDom {
         this.item.appendChild(this.video);
         this.video.appendChild(this.source);
       }
-      this.item.appendChild(this.legendeCarousel);
-      getCarousselDom.appendChild(this.item);
     });
   }
-
+  /**
+   *
+   * @params {String} createElement
+   * @params {String} className
+   * @params {String} attribute
+   * @returns {HTMLElement}
+   */
   createBaliseWithClass(createElement, className, attribute) {
     let balise = document.createElement(createElement);
     balise.setAttribute(attribute, className);
@@ -168,14 +170,19 @@ class FilterCard {
   constructor() {
     this.btnFilter();
   }
-
+  //Supprime le dom
   deleteDom() {
     while (containerMedia.firstChild) {
       containerMedia.removeChild(containerMedia.firstChild);
     }
   }
+  deleteCarousel() {
+    while (getCarousselDom.firstChild) {
+      getCarousselDom.removeChild(getCarousselDom.firstChild);
+    }
+  }
+  // Liste filtre
   btnFilter() {
-    // this.deleteDom();
     getfilterPopulaire.addEventListener(
       "click",
       this.filterPopulaire.bind(this)
@@ -183,9 +190,8 @@ class FilterCard {
     getfilterDate.addEventListener("click", this.filterDate.bind(this));
     getfilterTitle.addEventListener("click", this.filterTitle.bind(this));
   }
+
   filterPopulaire() {
-    // debugger;
-    console.log("test");
     arrayMedia = this.triePopulaire();
     this.deleteDom();
     new DisplayDom();
@@ -200,7 +206,7 @@ class FilterCard {
     this.deleteDom();
     new DisplayDom();
   }
-
+  // Trie le tableau des cards en fonction du parametre definie et return un tableau trier
   triePopulaire() {
     const arrayPopulaire = arrayMedia.sort(function (a, b) {
       return b.likes - a.likes;
@@ -235,7 +241,6 @@ class Carousel {
    */
 
   constructor(element, options = {}) {
-    getCarousselDom.style.display = "block";
     this.element = element;
     this.options = Object.assign(
       {},
@@ -336,21 +341,20 @@ class Carousel {
     return div;
   }
 }
-/**@TODO display block n'est pas gérer sur les filtres */
-const getDomArticle2 = document.querySelectorAll(".card-media figure img");
-getDomArticle2.forEach((element) => {
-  element.addEventListener("click", () => {
-    console.log("testeur");
 
-    new Carousel(document.getElementById("container-carousel"), {
-      slidesToScroll: 1,
-      slidesVisible: 1,
-    });
+const getDomArticle = document.querySelectorAll(".card-media figure img");
+getDomArticle.forEach((element) => {
+  element.addEventListener("click", () => {
+    getCarousselDom.style.display = "block";
+    new Carousel(getCarousselDom),
+      {
+        slidesToScroll: 1,
+        slidesVisible: 1,
+      };
   });
 });
 
 // LIKES ==========================================================================++++
-
 class Likes {
   /**
    * @params {HTMLElement} card
@@ -363,11 +367,14 @@ class Likes {
 
     this.iconLike = `<i class="fas fa-heart"></i>`;
     this.iconDislike = `<i class="far fa-heart"></i>`;
+
     this.addLikeCard();
     this.updateTotalLike();
+
     this.numberLikes = this.target.path[2].children[0];
     this.numberLikes.innerHTML = this.updateLikes.toString();
   }
+  
   updateTotalLike() {
     const getBoxInfo = document.querySelector(".total-likes");
     getBoxInfo.innerHTML = totalLikes.toString();
@@ -400,13 +407,6 @@ getLikeIcon.forEach((icon) => {
   });
 });
 
-function countTotalLikes() {
-  arrayMedia.forEach((element) => {
-    const likes = element.likes;
-    totalLikes += likes;
-  });
-  return totalLikes;
-}
 countTotalLikes();
 
 // BOX INFO ==================================================================++++++
@@ -426,40 +426,10 @@ class BoxInfo {
 }
 new BoxInfo();
 
-// function dom() {
-//   new DisplayDom();
-//   // filter();
-//   carousel();
-//   like();
-//   new BoxInfo();
-// }
-// dom();
-// let test = new DisplayDom();
-// function filter() {
-//   filterList.addEventListener("click", () => {
-//     new FilterCard();
-//     test;
-//   });
-// }
-
-function like() {
-  const getLikeIcon = document.querySelectorAll(".icon-like");
-  getLikeIcon.forEach((icon) => {
-    icon.addEventListener("click", (event) => {
-      new Likes(icon, event);
-    });
+function countTotalLikes() {
+  arrayMedia.forEach((element) => {
+    const likes = element.likes;
+    totalLikes += likes;
   });
-}
-
-function carousel() {
-  const getDomArticle2 = document.querySelectorAll(".card-media img");
-  getDomArticle2.forEach((element) => {
-    element.addEventListener("click", () => {
-      getCarousselDom.style.display = "block";
-      new Carousel(document.getElementById("container-carousel"), {
-        slidesToScroll: 1,
-        slidesVisible: 1,
-      });
-    });
-  });
+  return totalLikes;
 }

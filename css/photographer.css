@@ -50,18 +50,23 @@ main {
 }
 
 .modal header {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
     justify-content: space-between;
     width: 100%;
 }
 
 .modal header img {
     cursor: pointer;
+    width: 30px;
 }
 
 .modal header h2 {
     font-size: 45px;
     font-weight: normal;
     text-align: center;
+    margin: 0;
 }
 
 form {
@@ -166,6 +171,7 @@ textarea {
 }
 
 .icon-like {
+    margin-left: 5px;
     color: #901C1C !important;
     cursor: pointer;
     transition: transform 0.3s;
@@ -326,4 +332,40 @@ textarea {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+@media (max-width: 962px) {
+
+    #main {
+        flex-direction: column-reverse;
+        height: auto;
+    }
+
+
+    .photograph-header {
+        flex-direction: column-reverse;
+        height: auto;
+    }
+
+    .photograph-info {
+        text-align: center;
+    }
+
+    .contact_button {
+        margin-top: 5px;
+    }
+
+
+
+
+}
+
+@media (max-width: 765px) {
+    .modal header {
+
+        flex-direction: column-reverse;
+
+    }
+
+
 }

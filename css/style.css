@@ -7,10 +7,10 @@ body {
 }
 
 
-header {
+.header-index {
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap;
+    /* flex-wrap: wrap; */
     justify-content: space-between;
     align-items: center;
     height: 90px;
@@ -111,7 +111,7 @@ a {
         margin: 0
     }
 
-    header {
+    .header-index {
         display: grid;
         grid-template-columns: 1fr;
         text-align: center;

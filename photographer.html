@@ -8,6 +8,7 @@
   <link href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css"
     integrity="sha384-Bfad6CLCknfcloXFOyFnlgtENryhrpZCe29RTifKEixXQZ38WheV+i/6YWSzkz3V" crossorigin="anonymous" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Fisheye - photographe </title>
 </head>
 
@@ -20,27 +21,17 @@
     <section class="photograph-header">
     </section>
     <div class="filter">
-      <p>Trier par :</p>
-      <button id="buttonFilter" class="button-filter">
-        Populaire<i class="fas fa-chevron-down chevron-down"></i>
-      </button>
-      <ul id="filterList" class="photographMedias__filtersMenu--list ">
-        <li id="filter_popular">Popularité</li>
-        <li id="filter_date">Date</li>
-        <li id="filter_title"> Titre</li>
-      </ul>
     </div>
     <section id="container-media">
     </section>
-    <div id="container-carousel">
-    </div>
+    <div id="container-carousel"> </div>
     <!-- Fin du HTML a injecter Selection -->
   </main>
   <div id="contact_modal">
     <div class="modal">
       <header>
         <h2>Contactez-moi</h2>
-        <!-- <img src="assets/icons/close.svg" onclick="closeModal()" /> -->
+        <img src="assets/icons/close.svg" class="close-modal" />
       </header>
       <h2 id="contact-name"></h2>
       <form id="form-contact">
@@ -54,7 +45,7 @@
           <label for="message">Votre Message</label>
           <textarea name="message" id="message" cols="30" rows="10"></textarea>
         </div>
-        <button id="btn-envoyer" class="contact_button" onclick="closeModal()">Envoyer</button>
+        <button id="btn-envoyer" class="contact_button close-modal">Envoyer</button>
       </form>
     </div>
 

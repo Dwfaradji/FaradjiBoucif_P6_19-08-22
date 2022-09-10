@@ -161,6 +161,7 @@ class DisplayDom {
    * @param {Number} id - id de la card
    */
   displayCardDom(element, image, video, title, likes, id) {
+    this.href = this.createBaliseWithClass("a", "", "href");
     this.root = this.createBaliseWithClass("article", "card-media", "class");
     this.children = this.createBaliseWithClass("figure", "figure-box", "class");
     this.legende = this.createBaliseWithClass(
@@ -182,7 +183,9 @@ class DisplayDom {
       this.children.appendChild(this.video);
       this.video.appendChild(this.source);
     }
-    containerMedia.appendChild(this.root);
+
+    containerMedia.appendChild(this.href);
+    this.href.appendChild(this.root);
     this.root.appendChild(this.children);
     this.children.appendChild(this.legende);
   }

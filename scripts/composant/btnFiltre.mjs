@@ -12,7 +12,7 @@ export default class BtnFiltre {
       "buttonFilter",
       "button-filter"
     );
-    btnFilter.innerHTML = "Populaire";
+    btnFilter.innerHTML = `Populaire <i class="fas fa-chevron-down chevron"></i>`;
     const filterList = this.createHtmlElementFilter(
       "ul",
       "id",
@@ -25,7 +25,7 @@ export default class BtnFiltre {
       "filter_popular",
       ""
     );
-    listFilter1.innerHTML = "Populaire";
+    listFilter1.innerHTML = `Populaire <i class="fas fa-chevron-up chevron"></i>`;
     const listFilter2 = this.createHtmlElementFilter(
       "li",
       "id",

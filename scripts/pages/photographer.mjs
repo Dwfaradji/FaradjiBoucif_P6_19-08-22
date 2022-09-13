@@ -58,99 +58,37 @@ closeModals.forEach((element) => {
     closeModal();
   });
 });
-
 getFormContact(info);
 
 /**@TODO Ouvre le boutton filter et le referme  */
 
-const exitFilter = document.getElementById("main");
+const btnFilter = document.querySelector("#buttonFilter");
 function eventBtnFilter() {
   const filterList = document.getElementById("filterList");
-  exitFilter.addEventListener("click", (e) => {
-    e.preventDefault();
+  document.addEventListener("click", (e) => {
     if (e.target.id !== "buttonFilter") {
       filterList.style.display = "none";
+      btnFilter.style.display = "block";
     } else {
       filterList.style.display = "block";
+      btnFilter.style.display = "none";
     }
   });
 }
-
-/**@TODO Trie les cards lorsqu'on clic sur les options du filtre avec la methode sort */
-// FILTER ========================================================================++++
-class FilterCard {
-  constructor() {
-    this.btnFilter();
-  }
-  //Supprime le dom
-  deleteDom() {
-    while (containerMedia.firstChild) {
-      containerMedia.removeChild(containerMedia.firstChild);
-    }
-  }
-
-  // Liste filtre
-  btnFilter() {
-    getfilterPopulaire.addEventListener(
-      "click",
-      this.filterPopulaire.bind(this)
-    );
-    getfilterDate.addEventListener("click", this.filterDate.bind(this));
-    getfilterTitle.addEventListener("click", this.filterTitle.bind(this));
-  }
-
-  filterPopulaire() {
-    arrayMedia = this.triePopulaire();
-    this.deleteDom();
-    new DisplayDom();
-  }
-  filterDate() {
-    arrayMedia = this.trieDate();
-    this.deleteDom();
-    // new DisplayDom();
-  }
-  filterTitle() {
-    arrayMedia = this.trieTitle();
-    this.deleteDom();
-    // new DisplayDom();
-  }
-  // Trie le tableau des cards en fonction du parametre definie et return un tableau trier
-  triePopulaire() {
-    const arrayPopulaire = arrayMedia.sort(function (a, b) {
-      return b.likes - a.likes;
-    });
-    return arrayPopulaire;
-  }
-  trieDate() {
-    const arrayDate = arrayMedia.sort(function (a, b) {
-      return new Date(b.date) - new Date(a.date);
-    });
-    return arrayDate;
-  }
-  trieTitle() {
-    const arrayTitle = arrayMedia.sort(function (a, b) {
-      return a.title.localeCompare(b.title);
-    });
-    return arrayTitle;
-  }
-}
+eventBtnFilter();
 
 /**@TODO Construit les élements du dom  */
 // ELEMENT DOM ===================================================================++++++
-class DisplayDom {
-  constructor() {
-    this.itemCard = arrayMedia.forEach((element) => {
-      this.displayCardDom(
-        element,
-        element.image,
-        element.video,
-        element.title,
-        element.likes,
-        element.id
-      );
-    });
+class CreateCardDom {
+  constructor(element) {
+    this.displayCardDom(
+      element.image,
+      element.video,
+      element.title,
+      element.likes,
+      element.id
+    );
   }
-
   /**
    *
    * @param {Object} element - object des info de la card
@@ -160,65 +98,67 @@ class DisplayDom {
    * @param {Number} likes - Nombre de like
    * @param {Number} id - id de la card
    */
-  displayCardDom(element, image, video, title, likes, id) {
+  displayCardDom(image, video, title, likes, id) {
     this.href = this.createBaliseWithClass("a", "", "href");
     this.root = this.createBaliseWithClass("article", "card-media", "class");
-    this.children = this.createBaliseWithClass("figure", "figure-box", "class");
-    this.legende = this.createBaliseWithClass(
-      "figcaption",
-      "legende-box",
-      "class"
-    );
-    this.legende.innerHTML = ` 
-        ${title} 
-        <div>  <span class="likes">${likes}</span><span id="${id}" class="icon-like"><i class="far fa-heart"></i>
-                </span>
-          </div>`;
+    this.children = this.createBaliseWithClass("div", "figure-box", "class");
+    this.legende = this.createBaliseWithClass("div", "legende-box", "class");
+    this.legende.innerHTML = `${title} 
+        <div>
+          <span class="likes">${likes}</span>
+          <span id="${id}" class="icon-like"><i class="far fa-heart"></i></span>
+        </div>`;
 
-    if (element.image) {
+    if (image) {
       this.displayPicure(image);
-      this.children.appendChild(this.picture);
-    } else if (element.video) {
+    } else if (video) {
       this.displayVideo(video);
-      this.children.appendChild(this.video);
-      this.video.appendChild(this.source);
     }
 
     containerMedia.appendChild(this.href);
     this.href.appendChild(this.root);
     this.root.appendChild(this.children);
-    this.children.appendChild(this.legende);
+    this.root.appendChild(this.legende);
   }
   displayPicure(image) {
     let imgCard = `./assets/Sample Photos/${info.name}/${image}`;
     this.picture = this.createBaliseWithClass("img", imgCard, "src");
     this.picture.setAttribute("alt", "");
+    this.children.appendChild(this.picture);
   }
   displayVideo(video) {
     let videoCard = `./assets/Sample Photos/${info.name}/${video}`;
     this.video = this.createBaliseWithClass("video", "", "controls");
     this.source = this.createBaliseWithClass("source", videoCard, "src");
+    this.children.appendChild(this.video);
+    this.video.appendChild(this.source);
     this.source.setAttribute("type", "video/mp4");
   }
   /**
    *
-   * @param {String} createElement
-   * @param {String} className
-   * @param {String} attribute
-   * @returns {HTMLElement}
+   * @param {String} createElement - Création balise html
+   * @param {String} valueAttribut - Valeur de l'attribut
+   * @param {String} attribute - Ajout atrributes
+   * @returns {HTMLElement} Retourne un element HTML
    */
-  createBaliseWithClass(createElement, className, attribute) {
+  createBaliseWithClass(createElement, valueAttribut, attribute) {
     let balise = document.createElement(createElement);
-    balise.setAttribute(attribute, className);
+    balise.setAttribute(attribute, valueAttribut);
     return balise;
   }
 }
 
-new DisplayDom();
-new FilterCard();
-
-eventBtnFilter();
-/**@TODO les images se repete lorsque je trie mes cards */
+function deleteDom() {
+  while (containerMedia.firstChild) {
+    containerMedia.removeChild(containerMedia.firstChild);
+  }
+}
+function displayCardDom(array) {
+  deleteDom();
+  array.forEach((element) => {
+    new CreateCardDom(element);
+  });
+}
 // CAROUSEL======================================================================+++++++
 class Carousel {
   /**
@@ -288,10 +228,8 @@ class Carousel {
         "class"
       );
       this.item = this.createBaliseWithClass("div", "item", "class");
-
       this.container.appendChild(this.carouselItems);
       this.carouselItems.appendChild(this.item);
-
       this.legendeCarousel = this.createBaliseWithClass(
         "h2",
         "carousel-sous-titre",
@@ -314,7 +252,6 @@ class Carousel {
   createBaliseWithClass(createElement, className, attribute) {
     let balise = document.createElement(createElement);
     balise.setAttribute(attribute, className);
-
     return balise;
   }
   /**
@@ -384,19 +321,60 @@ class Carousel {
   }
 }
 /** @TODO  Cible la card clicker et va ouvrir le carousel et lire la class Carousel */
-const getDomArticle = document.querySelectorAll(".card-media figure img");
-const getContainerCarousel = document.getElementById("container-carousel");
 
-getDomArticle.forEach((element) => {
-  element.addEventListener("click", (e) => {
-    getContainerCarousel.style.display = "block";
-    new Carousel(getContainerCarousel),
-      {
-        slidesToScroll: 1,
-        slidesVisible: 1,
-      };
+function displayCarousel() {
+  const getDomArticle = document.querySelectorAll(".card-media .figure-box");
+  const getContainerCarousel = document.getElementById("container-carousel");
+  getDomArticle.forEach((element) => {
+    console.log(element);
+    element.addEventListener("click", (e) => {
+      console.log(e);
+      e.preventDefault();
+      new Carousel(getContainerCarousel);
+      getContainerCarousel.style.display = "block";
+    });
   });
-});
+}
+
+/**@TODO Trie les cards lorsqu'on clic sur les options du filtre avec la methode sort */
+// FILTER ========================================================================++++
+class FilterCard {
+  constructor() {
+    this.btnFilter();
+  }
+  // Liste filtre
+  btnFilter() {
+    getfilterPopulaire.addEventListener(
+      "click",
+      this.filterPopulaire.bind(this)
+    );
+    getfilterDate.addEventListener("click", this.filterDate.bind(this));
+    getfilterTitle.addEventListener("click", this.filterTitle.bind(this));
+  }
+
+  // Trie le tableau des cards en fonction du parametre definie et return un tableau trier
+  filterPopulaire() {
+    btnFilter.innerHTML = `Populaire  <i class="fas fa-chevron-down chevron"></i>`;
+    arrayMedia.sort((a, b) => {
+      return b.likes - a.likes;
+    });
+    init();
+  }
+  filterDate() {
+    btnFilter.innerHTML = `Date <i class="fas fa-chevron-down chevron"></i>`;
+    arrayMedia.sort((a, b) => {
+      return new Date(b.date) - new Date(a.date);
+    });
+    init();
+  }
+  filterTitle() {
+    btnFilter.innerHTML = `Titre <i class="fas fa-chevron-down chevron"></i>`;
+    arrayMedia.sort((a, b) => {
+      return a.title.localeCompare(b.title);
+    });
+    init();
+  }
+}
 
 // LIKES ==========================================================================++++
 class Likes {
@@ -441,15 +419,15 @@ class Likes {
     });
   }
 }
-
-const getLikeIcon = document.querySelectorAll(".icon-like");
-getLikeIcon.forEach((icon) => {
-  icon.addEventListener("click", () => {
-    new Likes(icon);
+function displayLikes(params) {
+  const getLikeIcon = document.querySelectorAll(".icon-like");
+  getLikeIcon.forEach((icon) => {
+    icon.addEventListener("click", (e) => {
+      e.preventDefault();
+      new Likes(icon);
+    });
   });
-});
-
-countTotalLikes();
+}
 
 // BOX INFO ==================================================================++++++
 class BoxInfo {
@@ -466,7 +444,6 @@ class BoxInfo {
     createDiv.appendChild(header);
   }
 }
-new BoxInfo();
 
 function countTotalLikes() {
   arrayMedia.forEach((element) => {
@@ -476,125 +453,12 @@ function countTotalLikes() {
   return totalLikes;
 }
 
-// class Carousel {
-//   /**
-//    * @param {HTMLElement} element
-//    * @param {Object} options
-//    * @param {Object} options.slidesToScroll nombres d'element a faire défiler
-//    * @param {Object} options.slidesVisible nombres d'element visible dans le slide
-//    * @param {boolean} options.loop doit-on boucler en fin de carousel
-//    */
-
-//   constructor(element, options = {}) {
-//     this.element = element;
-//     this.options = Object.assign(
-//       {},
-//       {
-//         slidesToScroll: 1,
-//         slidesVisible: 1,
-//         loop: false,
-//       },
-//       options
-//     );
-
-//     this.currentItem = 0;
-//     this.root = this.createDivWithClass("carousel");
-//     this.container = this.createDivWithClass("carousel-container");
-//     this.root.setAttribute("tabindex", "0");
-
-//     let children = [].slice.call(element.children);
-//     // boucle sur les image et supprime les doublons
-//     this.element.appendChild(this.root);
-//     this.root.appendChild(this.container);
-
-//     this.items = children.map((child) => {
-//       let item = this.createDivWithClass("carousel-item");
-//       item.appendChild(child);
-//       this.container.appendChild(item);
-//       return item;
-//     });
-//     this.setStyle();
-//     this.createNavigation();
-//     this.root.addEventListener("keyup", (e) => {
-//       console.log(e.key);
-//       if (e.key === "ArrowRight") {
-//         this.next();
-//       } else if (e.key === "ArrowLeft") {
-//         this.prev();
-//       }
-//     });
-//   }
-
-//   /**
-//    * Applique les bonnes dimmensions aux elements du carousel
-//    */
-
-//   setStyle() {
-//     let ratio = this.items.length / this.options.slidesVisible;
-//     this.container.style.width = ratio * 100 + "%";
-//     this.items.forEach(
-//       (item) =>
-//         (item.style.width = 100 / this.options.slidesVisible / ratio + "%")
-//     );
-//   }
-//   createNavigation() {
-//     let nextButton = this.createDivWithClass("carousel-next");
-//     let prevButton = this.createDivWithClass("carousel-prev");
-//     let exitButton = this.createDivWithClass("carousel-exit");
-//     this.root.appendChild(nextButton);
-//     this.root.appendChild(prevButton);
-//     this.root.appendChild(exitButton);
-//     nextButton.addEventListener("click", this.next.bind(this));
-//     prevButton.addEventListener("click", this.prev.bind(this));
-//     exitButton.addEventListener("click", this.exit.bind(this));
-//   }
-//   next() {
-//     this.gotoItem(this.currentItem + this.options.slidesToScroll);
-//   }
-//   prev() {
-//     this.gotoItem(this.currentItem - this.options.slidesToScroll);
-//   }
-//   exit() {
-//     getCarousselDom.style.display = "none";
-//   }
-//   /**
-//    * Déplace le carousel vers l'élément ciblé
-//    * @param {number} index
-//    */
-//   gotoItem(index) {
-//     if (index < 0) {
-//       index = this.items.length - this.options.slidesVisible;
-//     } else if (
-//       index >= this.items.length ||
-//       this.items[this.currentItem + this.options.slidesVisible] === undefined
-//     ) {
-//       index = 0;
-//     }
-//     let translateX = (index * -100) / this.items.length;
-//     this.container.style.transform = `translate3d(${translateX}%, 0, 0)`;
-//     this.currentItem = index;
-//   }
-//   /**
-//    * @param {string} className
-//    * @return {HTMLElement}
-//    *
-//    */
-//   createDivWithClass(className) {
-//     let div = document.createElement("div");
-//     div.setAttribute("class", className);
-//     return div;
-//   }
-// }
-// /** @TODO  Cible la card clicker et va ouvrir le carousel et lire la class Carousel */
-// const getDomArticle = document.querySelectorAll(".card-media figure img");
-// getDomArticle.forEach((element) => {
-//   element.addEventListener("click", (e) => {
-//     console.log(e);
-//     getCarousselDom.style.display = "block";
-//     new Carousel(getCarousselDom),
-//       {
-//         slidesToScroll: 1,
-//         slidesVisible: 1,
-//       };
-//   });
-// });
+function init() {
+  displayCardDom(arrayMedia);
+  displayCarousel();
+  new FilterCard();
+  displayLikes();
+}
+countTotalLikes();
+new BoxInfo();
+init();

@@ -5,7 +5,6 @@ export default function photographerFactory(data) {
   const { name, portrait, city, country, tagline, price, id } = data;
   const picture = `assets/photographers/${portrait}`;
   function getUserCardDOM() {
-    console.log(data);
     const article = document.createElement("article");
     article.innerHTML = `
     <a href="photographer.html?id=${data.id}">
@@ -22,19 +21,4 @@ export default function photographerFactory(data) {
 }
 photographerFactory(dataPhotographe);
 
-//code de base
 
-// function getUserCardDOM() {
-//   const article = document.createElement("article");
-//   const img = document.createElement("img");
-//   img.setAttribute("src", picture);
-//   const h2 = document.createElement("h2");
-//   h2.textContent = name;
-//   const text = (article.innerHTML = `<p>${city}, ${country} </p>`);
-//   console.log(article);
-//   // console.log((text.textContent = city + country ));
-//   article.appendChild(img);
-//   article.appendChild(h2);
-//   // article.appendChild(text);
-//   return article;
-// }

@@ -11,6 +11,10 @@
 
 }
 
+/* * {
+    border: 2px solid black;
+} */
+
 main {
     margin: 0 100px;
 }
@@ -114,7 +118,7 @@ textarea {
     object-fit: cover;
 }
 
-.card-media figure {
+.card-media .figure-box {
     margin: 0px;
 }
 
@@ -132,7 +136,7 @@ textarea {
     border-radius: 5px;
 }
 
-.card-media figcaption {
+.card-media .legende-box {
     display: flex;
     justify-content: space-between;
     margin: 5px;
@@ -188,7 +192,7 @@ textarea {
 .button-filter {
     background-color: #901C1C;
     color: white;
-    padding: 11px;
+    padding-left: 27px;
     width: 170px;
     height: 70px;
     border: none;
@@ -196,7 +200,15 @@ textarea {
     font-weight: bold;
     border-radius: 5px;
     cursor: pointer;
+    text-align: left;
     font-family: "DM Sans", sans-serif;
+}
+
+.chevron {
+    display: flex !important;
+    float: right;
+    line-height: unset !important;
+    margin-right: 14px;
 }
 
 .filter {
@@ -252,7 +264,6 @@ textarea {
 .carousel {
     position: relative;
     overflow: hidden;
-
 }
 
 .carousel-container {
@@ -264,7 +275,6 @@ textarea {
     content: '';
     clear: both;
     display: table;
-
 }
 
 .carousel-item {
@@ -281,10 +291,8 @@ textarea {
     top: 6%;
     margin-top: -20px;
     right: 0px;
-
     cursor: pointer;
     transition: transform 0.3s;
-
 }
 
 .carousel-next,
@@ -335,12 +343,11 @@ textarea {
 }
 
 @media (max-width: 962px) {
-
     #main {
         flex-direction: column-reverse;
         height: auto;
+        margin: 0px 10px 0px 10px;
     }
-
 
     .photograph-header {
         flex-direction: column-reverse;
@@ -354,18 +361,17 @@ textarea {
     .contact_button {
         margin-top: 5px;
     }
-
-
-
-
 }
 
 @media (max-width: 765px) {
     .modal header {
-
         flex-direction: column-reverse;
-
     }
+}
 
+@media (max-width: 962px) {
+    .photographMedias__filtersMenu--list {
+        left: 94px;
+    }
 
 }

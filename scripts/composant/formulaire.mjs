@@ -5,7 +5,7 @@ let infoContact = {
   message,
 };
 
-export default function getFormContact(info) {
+export default function displayDomForm(info) {
   const nameContact = document.getElementById("contact-name");
   nameContact.innerHTML = info.name;
   const formContact = document.getElementById("form-contact");
@@ -20,12 +20,12 @@ export default function getFormContact(info) {
       infoContact.message = e.target.value;
     }
   });
-  function envoyerMsg() {
+  function sendMsg() {
     const btnContact = document.getElementById("btn-envoyer");
     btnContact.addEventListener("click", (e) => {
       e.preventDefault();
       console.log(infoContact);
     });
   }
-  envoyerMsg();
+  sendMsg();
 }

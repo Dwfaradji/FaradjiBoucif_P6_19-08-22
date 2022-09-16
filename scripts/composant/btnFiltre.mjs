@@ -57,14 +57,4 @@ export default class BtnFiltre {
   }
 }
 
-/* <div class="filter">
-<p>Trier par :</p>
-<button id="buttonFilter" class="button-filter">
-  Populaire<i class="fas fa-chevron-down chevron-down"></i>
-</button>
-<ul id="filterList" class="photographMedias__filtersMenu--list ">
-  <li id="filter_popular">Popularité</li>
-  <li id="filter_date">Date</li>
-  <li id="filter_title"> Titre</li>
-</ul>
-</div> */
+

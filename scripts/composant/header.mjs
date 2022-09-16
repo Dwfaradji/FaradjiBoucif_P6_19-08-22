@@ -1,4 +1,4 @@
-export default function getHeaderDOM(info) {
+export default function displayDomSectionInfoPhotographer(info) {
   const picturePhotographe = `./assets/photographers/${info.portrait}`;
   const header = document.querySelector(".photograph-header");
   header.innerHTML = `

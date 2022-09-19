@@ -1,11 +1,11 @@
 "use strict";
 //Mettre le code JavaScript lié à la page photographer.html
 //Import
-import data from "../utils/dataPhotographe.mjs";
-import displayDomSectionInfoPhotographer from "../composant/header.mjs";
-import displayDomForm from "../composant/formulaire.mjs";
-import { displayModal, closeModal } from "../utils/contactForm.mjs";
-import BtnFiltre from "../composant/btnFiltre.mjs";
+import data from "../utils/dataPhotographe.js";
+import displayDomSectionInfoPhotographer from "../composant/header.js";
+import displayDomForm from "../composant/formulaire.js";
+import { displayModal, closeModal } from "../utils/contactForm.js";
+import BtnFiltre from "../composant/btnFiltre.js";
 // Récupere les datas du photographe et les medias
 const dataPhotographe = await data();
 const getInfoPhotographers = dataPhotographe.photographers;
@@ -30,6 +30,7 @@ getPhotographerId(getInfoPhotographers, arrayInfo);
 
 function getPhotographerId(arrays, newArray) {
   arrays.forEach((array) => {
+    array.data = false;
     if (array.photographerId == getUrlId || array.id == getUrlId) {
       newArray.push(array);
     }
@@ -48,31 +49,57 @@ const getfilterTitle = document.getElementById("filter_title");
 displayDomSectionInfoPhotographer(info);
 const getBtnContact = document.querySelector(".contact_button");
 const getCloseModals = document.querySelectorAll(".close-modal");
-
+const main = document.querySelector("#main");
+const body = document.querySelector("body");
+const access = "#contact_modal";
 // Display Formulaire
+
 getBtnContact.addEventListener("click", () => {
+  // debugger;
+  onOpenModal("#contact_modal", "no-scroll");
   displayModal();
 });
+
 displayDomForm(info);
 // Close Formulaire
 getCloseModals.forEach((getCloseModal) => {
   getCloseModal.addEventListener("click", () => {
+    onCloseModal(access, "no-scroll");
     closeModal();
   });
 });
 
+function onOpenModal(selectElement, scroll) {
+  const element = document.querySelector(selectElement);
+  body.setAttribute("class", scroll);
+  main.setAttribute("aria-hidden", "true");
+  element.setAttribute("aria-hidden", "false");
+}
+function onCloseModal(selectElement, scroll) {
+  const element = document.querySelector(selectElement);
+  body.removeAttribute("class", scroll);
+  main.setAttribute("aria-hidden", "false");
+  element.setAttribute("aria-hidden", "true");
+}
+
 /**@TODO Ouvre le boutton filter et le referme  */
 
-const getBtnFilter = document.querySelector("#buttonFilter");
+const getBtnFilter = document.querySelector(".button-filter ");
+const getFilterList = document.getElementById("filterList");
 function openAndCloseListFilter() {
-  const getFilterList = document.getElementById("filterList");
-  document.addEventListener("click", (e) => {
+  main.addEventListener("click", (e) => {
+    e.preventDefault();
+    getFilterList.addEventListener("click", () => {
+      onCloseModal("#filterList", "sroll");
+    });
+
     if (e.target.id !== "buttonFilter") {
       getFilterList.style.display = "none";
       getBtnFilter.style.display = "block";
     } else {
       getFilterList.style.display = "block";
       getBtnFilter.style.display = "none";
+      onOpenModal("#filterList", "scroll");
     }
   });
 }
@@ -82,8 +109,11 @@ openAndCloseListFilter();
 // ELEMENT DOM ===================================================================++++++
 class CardDom {
   constructor(elementCard) {
+    this.element = elementCard;
     this.CreateCardDom(elementCard);
+    this.displayHeart();
   }
+
   /**
    *
    * @param {Object} element - object des info de la card
@@ -93,15 +123,27 @@ class CardDom {
    * @param {Number} likes - Nombre de like
    * @param {Number} id - id de la card
    */
+
+  displayHeart() {
+    if (this.element.data == false) {
+      let iconDislike = '<i class="far fa-heart"></i>';
+      return iconDislike;
+    } else if (this.element.data == true) {
+      let iconLike = '<i class="fas fa-heart"></i>';
+      return iconLike;
+    }
+  }
+
   CreateCardDom(card) {
+    let heart = this.displayHeart();
     this.href = this.createBaliseWithClass("a", "", "href");
     this.root = this.createBaliseWithClass("article", "card-media", "class");
     this.content = this.createBaliseWithClass("div", "figure-box", "class");
     this.legende = this.createBaliseWithClass("div", "legende-box", "class");
     this.legende.innerHTML = `${card.title} 
         <div>
-          <span class="likes">${card.likes}</span>
-          <span id="${card.id}" class="icon-like"><i class="far fa-heart"></i></span>
+          <span class="likes" aria-label="like">${card.likes}</span>
+          <span id="${card.id}" class="icon-like" role="boutton">${heart}</span>
         </div>`;
 
     if (card.image) {
@@ -289,8 +331,12 @@ class Carousel {
   }
   createNavigation() {
     let nextButton = this.createDivWithClass("carousel-next");
+    nextButton.innerHTML = '<i class="fas fa-chevron-right"></i>';
     let prevButton = this.createDivWithClass("carousel-prev");
+    prevButton.innerHTML = '<i class="fas fa-chevron-left"></i>';
     let exitButton = this.createDivWithClass("carousel-exit");
+    exitButton.innerHTML = '<i class="fas fa-times"></i>';
+
     this.root.appendChild(nextButton);
     this.root.appendChild(prevButton);
     this.root.appendChild(exitButton);
@@ -307,6 +353,7 @@ class Carousel {
   exit() {
     this.element.style.display = "none";
     this.deleteCarousel();
+    onCloseModal("#container-carousel", "no-scroll");
   }
   deleteCarousel() {
     while (this.element.firstChild) {
@@ -344,18 +391,17 @@ class Carousel {
 /** @TODO  Cible la card clicker et va ouvrir le carousel et lire la class Carousel */
 
 function displayCarousel() {
-  const getDomArticles = document.querySelectorAll(".card-media .figure-box ");
+  const getDomArticles = document.querySelectorAll(".figure-box");
   const getContainerCarousel = document.getElementById("container-carousel");
   getDomArticles.forEach((getDomArticle, index) => {
     getDomArticle.addEventListener("click", (e) => {
-      // debugger;
       e.preventDefault();
+      onOpenModal("#container-carousel", "no-scroll");
       new Carousel(getContainerCarousel, getDomArticle, index);
       getContainerCarousel.style.display = "block";
     });
   });
 }
-let testObject;
 /**@TODO Trie les cards lorsqu'on clic sur les options du filtre avec la methode sort */
 // FILTER ========================================================================++++
 class FilterCard {
@@ -378,7 +424,6 @@ class FilterCard {
     arrayMedia.sort((a, b) => {
       return b.likes - a.likes;
     });
-    console.log(testObject);
 
     init();
   }
@@ -411,10 +456,10 @@ class Likes {
     this.iconLike = '<i class="fas fa-heart"></i>';
     this.iconDislike = '<i class="far fa-heart"></i>';
 
+    this.numberLikes = elementCard.parentNode.children[0];
     this.addLikeCard(arrayMedia);
     this.updateTotalLike();
-    this.numberLikes = elementCard.parentNode.children[0];
-    this.numberLikes.innerText = this.updateLikes.toString();
+    this.numberLikes.innerHTML = this.updateLikes;
   }
 
   updateTotalLike() {
@@ -426,14 +471,16 @@ class Likes {
   addLikeCard(getLikes) {
     getLikes.forEach((getLike) => {
       if (getLike.id == this.targetIdCard) {
-        let cardLike = getLike.likes;
-        if (cardLike == this.getCountLikes) {
-          this.updateLikes = cardLike + 1;
-          this.getIconLike.innerHTML = this.iconLike;
+        if (getLike.data == false) {
+          getLike.likes++;
+          this.updateLikes = getLike.likes;
           countTotalLikes++;
-          console.log(cardLike);
-        } else if (this.updateLikes !== this.getCountLikes) {
-          this.updateLikes = cardLike;
+          getLike.data = true;
+          this.getIconLike.innerHTML = this.iconLike;
+        } else if (getLike.data == true) {
+          getLike.data = false;
+          getLike.likes--;
+          this.updateLikes = getLike.likes;
           this.getIconLike.innerHTML = this.iconDislike;
           countTotalLikes--;
         }
@@ -464,7 +511,7 @@ class BoxInfo {
     div.innerHTML = `
 	  <span class="total-likes">${countTotalLikes}</span>
     <span><i class="fas fa-heart"></i></span>
-    <span>${info.price} /jour</span> `;
+    <span>${info.price}€ /jour</span> `;
     getBoxInfo.appendChild(div);
   }
 }
@@ -486,3 +533,4 @@ function init() {
 displayCountTotalLikes();
 new BoxInfo();
 init();
+// display();

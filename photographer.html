@@ -13,12 +13,12 @@
 </head>
 
 <body>
-  <div id="container-carousel"></div>
+  <div id="container-carousel" aria-hidden="true" role="carousel"></div>
 
   <header class="header-index">
     <a href="./index.html" class="href"> <img src="assets/images/logo.png" alt="Fisheye" class="logo" /></a>
   </header>
-  <main id="main">
+  <main id="main" aria-hidden="false">
     <section class="photograph-header">
     </section>
     <div class="filter">
@@ -28,11 +28,11 @@
 
     <!-- Fin du HTML a injecter Selection -->
   </main>
-  <div id="contact_modal">
-    <div class="modal">
+  <div id="contact_modal" aria-hidden="true" role="dialog" aria-describedby="formulaire">
+    <div id="formulaire" class="modal">
       <header>
         <h2>Contactez-moi</h2>
-        <img src="assets/icons/close.svg" class="close-modal" />
+        <img src="assets/icons/close.svg" class="close-modal" aria-label="fermer" />
       </header>
       <h2 id="contact-name"></h2>
       <form id="form-contact">
@@ -51,8 +51,8 @@
     </div>
 
   </div>
-  <script type="module" src="/scripts/pages/photographer.mjs" defer></script>
-  <script type="module" src="/scripts/utils/contactForm.mjs" defer></script>
+  <script type="module" src="/scripts/pages/photographer.js" defer></script>
+  <script type="module" src="/scripts/utils/contactForm.js" defer></script>
 
 </body>
 

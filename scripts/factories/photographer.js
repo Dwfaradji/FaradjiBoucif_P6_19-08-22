@@ -1,4 +1,4 @@
-import data from "../utils/dataPhotographe.mjs";
+import data from "../utils/dataPhotographe.js";
 const dataPhotographe = await data();
 
 export default function photographerFactory(data) {
@@ -12,7 +12,7 @@ export default function photographerFactory(data) {
     <h2>${name}</h2>   
         <span class="locality">${city}, ${country} </span>
     <p>${tagline}</p>
-    <span class="color-text-secondaire">${price}/jour</span>
+    <span class="color-text-secondaire">${price}€/jour</span>
     </a>
     `;
     return article;
@@ -20,5 +20,3 @@ export default function photographerFactory(data) {
   return { name, picture, id, getUserCardDOM };
 }
 photographerFactory(dataPhotographe);
-
-

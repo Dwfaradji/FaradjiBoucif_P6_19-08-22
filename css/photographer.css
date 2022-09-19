@@ -1,7 +1,7 @@
 #contact_modal {
     display: none;
     position: fixed;
-    /* z-index: 1; */
+    z-index: 50;
     left: 0;
     top: 0;
     height: 100%;
@@ -17,6 +17,14 @@
 
 main {
     margin: 0 100px;
+}
+
+.no-scroll {
+    overflow: hidden;
+}
+
+.scroll {
+    overflow: scroll
 }
 
 .photograph-header {
@@ -160,8 +168,9 @@ textarea {
     text-align: center;
     padding: 10px;
     border-radius: 5px 5px 0px 0px;
-    display: flex;
-    justify-content: space-around;
+    display: grid;
+    grid-template-columns: 0.5fr 22px 0.9fr;
+    text-align: end;
 }
 
 #container-media {
@@ -181,9 +190,23 @@ textarea {
     transition: transform 0.3s;
 }
 
+
+
 .heart {
     color: #901C1C
 }
+
+.heart-vide {
+    display: none;
+
+}
+
+.heart-plein {
+    display: block;
+}
+
+
+
 
 .photographe-info {
     color: #525252;
@@ -258,7 +281,7 @@ textarea {
     width: 70%;
     height: 480px;
     overflow: auto;
-    background-color: rgb(255 255 255 / 70%);
+    background-color: #FAFAFA
 }
 
 .carousel {
@@ -282,17 +305,18 @@ textarea {
 }
 
 .carousel-exit {
+    display: flex;
+    justify-content: center;
     position: absolute;
     width: 40px;
     height: 40px;
-    background: url(../assets/icons/exit.svg) center center no-repeat;
-    background-size: 20px 20px;
-    border-radius: 50%;
+    font-size: x-large;
     top: 6%;
     margin-top: -20px;
-    right: 0px;
+    right: 45px;
     cursor: pointer;
     transition: transform 0.3s;
+    color: #901C1C;
 }
 
 .carousel-next,
@@ -300,15 +324,15 @@ textarea {
     position: absolute;
     width: 40px;
     height: 40px;
-    background: #FAFAFA url(../assets/icons/chevron-right-solid.svg) center center no-repeat;
-    background-size: 20px 20px;
-    border-radius: 50%;
     top: 50%;
-    margin-top: -20px;
-    right: 0px;
-    box-shadow: 0 15px 35px #3232321a, 0 5px 15px #0000001a;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    right: 45px;
     cursor: pointer;
     transition: transform 0.3s;
+    font-size: x-large;
+    color: #901C1C;
 }
 
 
@@ -318,28 +342,29 @@ textarea {
 }
 
 .carousel-prev {
-    background-image: url(../assets/icons/chevron-left-solid.svg);
+
     right: auto;
-    left: 0px;
+    left: 45px;
 }
 
 .item img,
 .item video {
-    width: 84%;
+    width: 70%;
     object-fit: cover;
-    height: 400px;
+    height: 420px;
     padding-top: 1em;
 }
 
 .item .carousel-sous-titre {
-    margin: 5px;
-    font-size: xxx-large;
+    margin: 0px 0px 0px 14%;
+    text-align: left;
+    color: #901C1C;
+    width: 7em;
 }
 
 .item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    text-align: center;
+    height: 468px;
 }
 
 @media (max-width: 962px) {

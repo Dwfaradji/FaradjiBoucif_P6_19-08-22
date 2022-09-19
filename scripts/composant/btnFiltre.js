@@ -19,6 +19,8 @@ export default class BtnFiltre {
       "filterList",
       "photographMedias__filtersMenu--list"
     );
+    filterList.setAttribute("aria-hidden", "true");
+    filterList.setAttribute("role", "filtre");
     const listFilter1 = this.createHtmlElementFilter(
       "li",
       "id",
@@ -26,6 +28,7 @@ export default class BtnFiltre {
       ""
     );
     listFilter1.innerHTML = `Populaire <i class="fas fa-chevron-up chevron"></i>`;
+    listFilter1.setAttribute("aria-label", "filtre populaire");
     const listFilter2 = this.createHtmlElementFilter(
       "li",
       "id",
@@ -56,5 +59,3 @@ export default class BtnFiltre {
     return createBaliseDom;
   }
 }
-
-

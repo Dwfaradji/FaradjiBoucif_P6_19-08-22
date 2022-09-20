@@ -8,7 +8,7 @@ export default function displayDomSectionInfoPhotographer(info) {
     <p class="color-text-secondaire">  ${info.tagline} </p>
   </div>
   <button class="contact_button" >Contactez-moi</button>
-  <img src="${picturePhotographe}" alt="${info.name} "> 
+  <img src="${picturePhotographe}" alt="${info.name}"> 
 `;
     return;
 }

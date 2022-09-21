@@ -23,6 +23,8 @@ button {
 
 main {
     margin: 0 100px;
+    margin-bottom: 3em;
+
 }
 
 .no-scroll {
@@ -75,9 +77,11 @@ main {
     width: 100%;
 }
 
-.modal header img {
+.modal header .close-modal {
     cursor: pointer;
     width: 30px;
+    font-size: xx-large;
+    color: #FAFAFA;
 }
 
 .modal header h2 {
@@ -374,7 +378,7 @@ textarea {
     margin-top: -20px;
     right: 45px;
     cursor: pointer;
-    transition: transform 0.3s;
+    transition: transform 0.3s,opacity 0.3;
     color: #901C1C;
 }
 
@@ -393,7 +397,9 @@ textarea {
     font-size: x-large;
     color: #901C1C;
 }
-
+.carousel-prev-hidden,.carousel-next-hidden{
+    opacity: 0;
+}
 
 .carousel-next:hover,
 .carousel-prev:hover {

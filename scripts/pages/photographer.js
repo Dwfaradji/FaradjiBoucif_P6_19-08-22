@@ -53,10 +53,17 @@ const access = "#contact_modal";
 // Display Formulaire
 
 getBtnContact.addEventListener("click", () => {
-    // debugger;
+    getTabIndex("-1");
     onOpenModal("#contact_modal", "no-scroll");
     displayModal();
 });
+function getTabIndex(index) {
+    const getTabIndexCard = main.querySelectorAll("[tabindex]");
+
+    getTabIndexCard.forEach((el) => {
+        el.setAttribute("tabindex", index);
+    });
+}
 
 displayDomForm(info);
 // Close Formulaire
@@ -64,6 +71,7 @@ getCloseModals.forEach((getCloseModal) => {
     getCloseModal.addEventListener("click", () => {
         onCloseModal(access, "no-scroll");
         closeModal();
+        getTabIndex("0");
     });
 });
 
@@ -134,12 +142,13 @@ class CardDom {
 
     CreateCardDom(card) {
         let heart = this.displayHeart();
-        // this.href = this.createBaliseWithClass('a', '', 'href');
         this.root = this.createBaliseWithClass(
             "article",
             "card-media",
             "class"
         );
+        this.root.setAttribute("tabindex", "0");
+
         this.content = this.createBaliseWithClass("div", "figure-box", "class");
         this.legende = this.createBaliseWithClass(
             "div",
@@ -147,9 +156,9 @@ class CardDom {
             "class"
         );
         this.legende.innerHTML = `${card.title} 
-        <button>
-          <span class="likes" aria-label='${card.likes} likes'>${card.likes}</span>
-          <span id="${card.id}" class="icon-like">${heart}</span>
+        <button tabindex="0">
+          <span class="likes">${card.likes}</span>
+          <span id="${card.id}" class="icon-like" aria-label="likes">${heart}</span>
         </button>`;
 
         if (card.image) {
@@ -167,8 +176,8 @@ class CardDom {
     displayPicure(pictureCard) {
         let imgCard = `./assets/Sample Photos/${info.name}/${pictureCard.image}`;
         this.picture = this.createBaliseWithClass("img", imgCard, "src");
-        this.picture.setAttribute("alt", pictureCard.title);
-        this.picture.setAttribute("tabindex", "0");
+        this.picture.setAttribute("alt", "");
+        // this.picture.setAttribute("tabindex", "0");
         this.content.appendChild(this.picture);
     }
     displayVideo(movieCard) {
@@ -183,7 +192,7 @@ class CardDom {
         this.video.appendChild(this.source);
         this.source.setAttribute("type", "video/mp4");
         this.video.setAttribute("title", movieCard.title);
-        this.video.setAttribute("tabindex", "0");
+        // this.video.setAttribute("tabindex", "0");
         return this.video;
     }
     /**
@@ -221,7 +230,7 @@ class Carousel {
      * @param {boolean} options.loop doit-on boucler en fin de carousel
      */
 
-    constructor(element, eventElement, index, options = {}) {
+    constructor(element, index, options = {}) {
         let indexElement = { element, index };
 
         this.element = element;
@@ -231,13 +240,13 @@ class Carousel {
             {
                 slidesToScroll: 1,
                 slidesVisible: 1,
-                loop: false,
+                loop: true,
             },
             options
         );
 
         this.currentItem = 0;
-
+        console.log(this.currentItem);
         let firstArrayElement = [];
         let lastArrayElement = [];
 
@@ -248,9 +257,10 @@ class Carousel {
         );
         this.createDomCarousel();
         this.getHtmlElement();
-
+        // this.moveCallbacks = [];
         this.setStyle();
         this.createNavigation();
+        // this.moveCallbacks.forEach((cd) => cd("0"));
         this.root.addEventListener("keyup", (e) => {
             if (e.key === "ArrowRight") {
                 this.next();
@@ -289,7 +299,7 @@ class Carousel {
         this.video = this.createBaliseWithClass("video", "", "controls");
         this.source = this.createBaliseWithClass("source", videoCard, "src");
         this.source.setAttribute("type", "video/mp4");
-        this.video.setAttribute("tabindex", "1");
+        this.video.setAttribute("tabindex", "-1");
     }
     createDomCarousel() {
         this.root = this.createBaliseWithClass("section", "carousel", "class");
@@ -380,6 +390,24 @@ class Carousel {
         nextButton.addEventListener("click", this.next.bind(this));
         prevButton.addEventListener("click", this.prev.bind(this));
         exitButton.addEventListener("click", this.exit.bind(this));
+        // if (this.options.loop === false) {
+        //     return;
+        // }
+        // this.onMove((index) => {
+        //     if (index === 0) {
+        //         prevButton.classList.add("carousel-prev-hidden");
+        //     } else {
+        //         prevButton.classList.remove("carousel-prev-hidden");
+        //     }
+        //     if (
+        //         this.items[this.currentItem + this.options.slidesVisible] ===
+        //         undefined
+        //     ) {
+        //         nextButton.classList.add("carousel-next-hidden");
+        //     } else {
+        //         nextButton.classList.remove("carousel-next-hidden");
+        //     }
+        // });
     }
     next() {
         this.gotoItem(this.currentItem + this.options.slidesToScroll);
@@ -391,6 +419,7 @@ class Carousel {
         this.element.style.display = "none";
         this.deleteCarousel();
         onCloseModal("#container-carousel", "no-scroll");
+        getTabIndex("0");
     }
     deleteCarousel() {
         while (this.element.firstChild) {
@@ -405,9 +434,10 @@ class Carousel {
         if (index < 0) {
             index = this.items.length - this.options.slidesVisible;
         } else if (
-            index >= this.items.length ||
-            this.items[this.currentItem + this.options.slidesVisible] ===
-                undefined
+            index >= this.items.length
+            // ||
+            // this.items[this.currentItem + this.options.slidesVisible] ===
+            //     undefined
         ) {
             index = 0;
         }
@@ -415,6 +445,9 @@ class Carousel {
         this.container.style.transform = `translate3d(${translateX}%, 0, 0)`;
         this.currentItem = index;
     }
+    // onMove(cd) {
+    //     this.moveCallbacks.push(cd);
+    // }
     /**
      * @param {string} className
      * @return {HTMLElement}
@@ -435,8 +468,9 @@ function displayCarousel() {
         getDomArticle.addEventListener("click", (e) => {
             e.preventDefault();
             onOpenModal("#container-carousel", "no-scroll");
-            new Carousel(getContainerCarousel, getDomArticle, index);
+            new Carousel(getContainerCarousel, index);
             getContainerCarousel.style.display = "block";
+            getTabIndex("-1");
         });
     });
 }

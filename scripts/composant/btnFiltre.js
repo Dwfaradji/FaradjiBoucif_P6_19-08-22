@@ -14,7 +14,9 @@ export default class BtnFiltre {
         );
         btnFilter.innerHTML =
             'Populaire <i class="fas fa-chevron-down chevron"></i>';
-        // btnFilter.setAttribute("class", "btn-hover");
+        btnFilter.setAttribute("aria-label", "boutton trier");
+        btnFilter.setAttribute("tabindex", "0");
+
         const filterList = this.createHtmlElementFilter(
             "ul",
             "id",
@@ -23,6 +25,7 @@ export default class BtnFiltre {
         );
         filterList.setAttribute("aria-hidden", "true");
         filterList.setAttribute("role", "filtre");
+
         const listFilter1 = this.createHtmlElementFilter(
             "li",
             "id",
@@ -32,6 +35,7 @@ export default class BtnFiltre {
         listFilter1.innerHTML =
             'Populaire <i class="fas fa-chevron-up chevron"></i>';
         listFilter1.setAttribute("aria-label", "filtre populaire");
+        listFilter1.setAttribute("tabindex", "0");
         const listFilter2 = this.createHtmlElementFilter(
             "li",
             "id",
@@ -39,6 +43,8 @@ export default class BtnFiltre {
             ""
         );
         listFilter2.innerHTML = "Date";
+        listFilter2.setAttribute("tabindex", "0");
+        listFilter2.setAttribute("aria-label", "filtre date");
         const listFilter3 = this.createHtmlElementFilter(
             "li",
             "id",
@@ -46,7 +52,8 @@ export default class BtnFiltre {
             "title"
         );
         listFilter3.innerHTML = "Titre";
-
+        listFilter3.setAttribute("tabindex", "0");
+        listFilter3.setAttribute("aria-label", "filtre titre");
         getFilterClass.appendChild(label);
         getFilterClass.appendChild(btnFilter);
         getFilterClass.appendChild(filterList);

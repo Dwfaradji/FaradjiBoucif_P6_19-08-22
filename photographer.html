@@ -28,11 +28,11 @@
 
     <!-- Fin du HTML a injecter Selection -->
   </main>
-  <div id="contact_modal" aria-hidden="true" role="dialog" aria-describedby="formulaire">
+  <div id="contact_modal" aria-hidden="true" role="dialog" aria-describedby="formulaire" tabindex="">
     <div id="formulaire" class="modal">
       <header>
         <h2>Contactez-moi</h2>
-        <button> <img src="assets/icons/close.svg" class="close-modal" tabindex="0" aria-label="fermer" /></button>
+        <button class="close-modal" tabindex="0" aria-label="fermer"><i class="fas fa-times"></i></button>
       </header>
       <h2 id="contact-name"></h2>
       <form id="form-contact">

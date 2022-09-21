@@ -11,6 +11,12 @@
 
 }
 
+button {
+    border: none;
+    background-color: #ffffff00;
+    color: #901C1C;
+}
+
 /* * {
     border: 2px solid black;
 } */
@@ -144,6 +150,14 @@ textarea {
     border-radius: 5px;
 }
 
+.video-icon {
+    position: absolute;
+    margin: 10px;
+    font-size: 30px;
+    color: #901C1C;
+
+}
+
 .card-media .legende-box {
     display: flex;
     justify-content: space-between;
@@ -212,10 +226,30 @@ textarea {
     color: #525252;
 }
 
+
+
+.btn-hover:hover,
+.btn-hover:focus {
+    background-color: #db8876;
+    color: #000000;
+}
+
+.photographMedias__filtersMenu--list>li:hover,
+.photographMedias__filtersMenu--list>li:focus {
+    background-color: #db8876;
+    color: #000000;
+}
+
+.photographMedias__filtersMenu--list>li:last-child:before {
+    border: none;
+}
+
+
 .button-filter {
     background-color: #901C1C;
     color: white;
-    padding-left: 27px;
+    padding-left: 17px;
+    padding-right: 10px;
     width: 170px;
     height: 70px;
     border: none;
@@ -225,13 +259,19 @@ textarea {
     cursor: pointer;
     text-align: left;
     font-family: "DM Sans", sans-serif;
+    line-height: 50px;
 }
+
+.button-filter i {
+    pointer-events: none;
+}
+
 
 .chevron {
     display: flex !important;
     float: right;
     line-height: unset !important;
-    margin-right: 14px;
+    /* margin-right: 14px; */
 }
 
 .filter {
@@ -263,13 +303,27 @@ textarea {
     font-size: 20px;
     font-weight: bold;
     color: white;
-    padding: 10px;
-    padding-left: 27px;
+    padding: 10px 10px 10px 17px;
+    /* padding-left: 27px; */
     height: 50px;
     border: none;
     background-color: #901C1C;
     cursor: pointer;
     position: relative;
+    /* border-bottom: 1px solid white; */
+
+}
+
+.title {
+    border-bottom: none !important;
+}
+
+.photographMedias__filtersMenu--list>li::before {
+    content: "";
+    position: absolute;
+    border-bottom: 1px solid white;
+    width: calc(100% - 31px);
+    bottom: 0;
 }
 
 /* Caroussel */

@@ -3,46 +3,49 @@ export default class BtnFiltre {
         this.btnFiltre();
     }
     btnFiltre() {
-        const getFilterClass = document.querySelector('.filter');
-        const label = this.createHtmlElementFilter('p', 'class', 'label', '');
-        label.innerHTML = 'Trier par :';
+        const getFilterClass = document.querySelector(".filter");
+        const label = this.createHtmlElementFilter("p", "class", "label", "");
+        label.innerHTML = "Trier par :";
         const btnFilter = this.createHtmlElementFilter(
-            'button',
-            'id',
-            'buttonFilter',
-            'button-filter'
+            "button",
+            "id",
+            "buttonFilter",
+            "button-filter btn-hover"
         );
-        btnFilter.innerHTML = 'Populaire <i class="fas fa-chevron-down chevron"></i>';
+        btnFilter.innerHTML =
+            'Populaire <i class="fas fa-chevron-down chevron"></i>';
+        // btnFilter.setAttribute("class", "btn-hover");
         const filterList = this.createHtmlElementFilter(
-            'ul',
-            'id',
-            'filterList',
-            'photographMedias__filtersMenu--list'
+            "ul",
+            "id",
+            "filterList",
+            "photographMedias__filtersMenu--list"
         );
-        filterList.setAttribute('aria-hidden', 'true');
-        filterList.setAttribute('role', 'filtre');
+        filterList.setAttribute("aria-hidden", "true");
+        filterList.setAttribute("role", "filtre");
         const listFilter1 = this.createHtmlElementFilter(
-            'li',
-            'id',
-            'filter_popular',
-            ''
+            "li",
+            "id",
+            "filter_popular",
+            ""
         );
-        listFilter1.innerHTML = 'Populaire <i class="fas fa-chevron-up chevron"></i>';
-        listFilter1.setAttribute('aria-label', 'filtre populaire');
+        listFilter1.innerHTML =
+            'Populaire <i class="fas fa-chevron-up chevron"></i>';
+        listFilter1.setAttribute("aria-label", "filtre populaire");
         const listFilter2 = this.createHtmlElementFilter(
-            'li',
-            'id',
-            'filter_date',
-            ''
+            "li",
+            "id",
+            "filter_date",
+            ""
         );
-        listFilter2.innerHTML = 'Date';
+        listFilter2.innerHTML = "Date";
         const listFilter3 = this.createHtmlElementFilter(
-            'li',
-            'id',
-            'filter_title',
-            ''
+            "li",
+            "id",
+            "filter_title",
+            "title"
         );
-        listFilter3.innerHTML = 'Titre';
+        listFilter3.innerHTML = "Titre";
 
         getFilterClass.appendChild(label);
         getFilterClass.appendChild(btnFilter);

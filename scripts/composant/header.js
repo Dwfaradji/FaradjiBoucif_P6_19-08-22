@@ -7,7 +7,7 @@ export default function displayDomSectionInfoPhotographer(info) {
     <span class="locality">${info.city}, ${info.country}</span><br>
     <p class="color-text-secondaire">  ${info.tagline} </p>
   </div>
-  <button class="contact_button" >Contactez-moi</button>
+  <button class="contact_button btn-hover" >Contactez-moi</button>
   <img src="${picturePhotographe}" alt="${info.name}"> 
 `;
     return;

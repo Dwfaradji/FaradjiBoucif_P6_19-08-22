@@ -1,5 +1,6 @@
 // CAROUSEL======================================================================+++++++
 import { onCloseModal, getTabIndex } from "../utils/accesibilite.js";
+import mediaCard from "../factories/mediaCard.js";
 export default class Carousel {
     /**
      * @param {HTMLElement} element
@@ -38,7 +39,7 @@ export default class Carousel {
         this.getHtmlElement();
         this.setStyle();
         this.createNavigation();
-        this.root.addEventListener("keyup", (e) => {
+        document.addEventListener("keyup", (e) => {
             if (e.key === "ArrowRight") {
                 this.next();
             } else if (e.key === "ArrowLeft") {
@@ -66,18 +67,18 @@ export default class Carousel {
         });
     }
 
-    displayPicure(image) {
-        let imgCard = `./assets/Sample Photos/${this.info.name}/${image}`;
-        this.picture = this.createBaliseWithClass("img", imgCard, "src");
-        this.picture.setAttribute("alt", "");
-    }
-    displayVideo(video) {
-        let videoCard = `./assets/Sample Photos/${this.info.name}/${video}`;
-        this.video = this.createBaliseWithClass("video", "", "controls");
-        this.source = this.createBaliseWithClass("source", videoCard, "src");
-        this.source.setAttribute("type", "video/mp4");
-        this.video.setAttribute("tabindex", "-1");
-    }
+    // displayPicure(image) {
+    //     let imgCard = `./assets/Sample Photos/${this.info.name}/${image}`;
+    //     this.picture = this.createBaliseWithClass("img", imgCard, "src");
+    //     this.picture.setAttribute("alt", "");
+    // }
+    // displayVideo(video) {
+    //     let videoCard = `./assets/Sample Photos/${this.info.name}/${video}`;
+    //     this.video = this.createBaliseWithClass("video", "", "controls");
+    //     this.source = this.createBaliseWithClass("source", videoCard, "src");
+    //     this.source.setAttribute("type", "video/mp4");
+    //     this.video.setAttribute("tabindex", "-1");
+    // }
     createDomCarousel() {
         this.root = this.createBaliseWithClass("section", "carousel", "class");
         this.root.setAttribute("tabindex", "0");
@@ -105,13 +106,20 @@ export default class Carousel {
             );
             this.legendeCarousel.innerHTML = element.title;
 
-            if (element.image) {
-                this.displayPicure(element.image, element.title);
-                this.item.appendChild(this.picture);
-            } else if (element.video) {
-                this.displayVideo(element.video);
-                this.item.appendChild(this.video);
-                this.video.appendChild(this.source);
+            // if (element.image) {
+            //     this.displayPicure(element.image, element.title);
+            //     this.item.appendChild(this.picture);
+            // } else if (element.video) {
+            //     this.displayVideo(element.video);
+            //     this.item.appendChild(this.video);
+            //     this.video.appendChild(this.source);
+            // }
+
+            const test = mediaCard(element, this.info, this.item);
+
+            if (test.video) {
+                test.video.setAttribute("controls", "");
+                test.video.setAttribute("tabindex", "-1");
             }
             this.item.appendChild(this.legendeCarousel);
         });

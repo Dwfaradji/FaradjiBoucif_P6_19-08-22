@@ -53,7 +53,6 @@ init();
 // Display Formulaire
 const getBtnContact = document.querySelector(".contact_button");
 getBtnContact.addEventListener("click", () => {
-    console.log("test");
     getTabIndex("-1");
     onOpenModal("#contact_modal", "no-scroll");
     displayModal();

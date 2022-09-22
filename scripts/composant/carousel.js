@@ -141,7 +141,7 @@ export default class Carousel {
             "carousel-next",
             "class"
         );
-        nextButton.innerHTML = '<i class="fas fa-chevron-right"></i>';
+        nextButton.innerHTML = "<i class='fas fa-chevron-right'></i>";
         nextButton.setAttribute("title", "suivante");
         nextButton.setAttribute("tabindex", "0");
         let prevButton = this.createBaliseWithClass(
@@ -149,7 +149,7 @@ export default class Carousel {
             "carousel-prev",
             "class"
         );
-        prevButton.innerHTML = '<i class="fas fa-chevron-left"></i>';
+        prevButton.innerHTML = "<i class='fas fa-chevron-left'></i>";
         prevButton.setAttribute("title", "précedent");
         prevButton.setAttribute("tabindex", "0");
         let exitButton = this.createBaliseWithClass(
@@ -158,7 +158,7 @@ export default class Carousel {
             "class"
         );
 
-        exitButton.innerHTML = '<i class="fas fa-times"></i>';
+        exitButton.innerHTML = "<i class='fas fa-times'></i>";
         exitButton.setAttribute("title", "fermer");
         exitButton.setAttribute("tabindex", "0");
         this.root.appendChild(prevButton);

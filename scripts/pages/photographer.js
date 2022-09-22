@@ -119,8 +119,8 @@ class Likes {
         this.getIconLike = elementCard;
         this.getCountLikes = elementCard.parentNode.outerText;
 
-        this.iconLike = '<i class="fas fa-heart"></i>';
-        this.iconDislike = '<i class="far fa-heart"></i>';
+        this.iconLike = "<i class='fas fa-heart'></i>";
+        this.iconDislike ="<i class='far fa-heart'></i>";
         this.numberLikes = elementCard.parentNode.children[0];
         this.addLikeCard(arrayMedia);
         this.updateTotalLike();

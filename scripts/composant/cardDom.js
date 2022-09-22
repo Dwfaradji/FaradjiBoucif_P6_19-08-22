@@ -18,10 +18,10 @@ export default class CardDom {
 
     displayHeart() {
         if (this.element.data == false) {
-            let iconDislike = '<i class="far fa-heart"></i>';
+            let iconDislike = "<i class='far fa-heart'></i>";
             return iconDislike;
         } else if (this.element.data == true) {
-            let iconLike = '<i class="fas fa-heart"></i>';
+            let iconLike = "<i class='fas fa-heart'></i>";
             return iconLike;
         }
     }
@@ -52,7 +52,7 @@ export default class CardDom {
             this.displayPicure(card);
         } else if (card.video) {
             this.displayVideo(card);
-            this.root.innerHTML = '<i class="fas fa-video video-icon"></i>';
+            this.root.innerHTML = "<i class='fas fa-video video-icon'></i>";
         }
 
         getContainerMedia.appendChild(this.root);

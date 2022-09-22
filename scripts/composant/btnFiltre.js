@@ -13,7 +13,7 @@ export default class BtnFiltre {
             "button-filter btn-hover"
         );
         btnFilter.innerHTML =
-            'Populaire <i class="fas fa-chevron-down chevron"></i>';
+            "Populaire <i class='fas fa-chevron-down chevron'></i>";
         btnFilter.setAttribute("aria-label", "boutton trier");
         btnFilter.setAttribute("tabindex", "0");
 
@@ -33,7 +33,7 @@ export default class BtnFiltre {
             ""
         );
         listFilter1.innerHTML =
-            'Populaire <i class="fas fa-chevron-up chevron"></i>';
+            "Populaire <i class='fas fa-chevron-up chevron'></i>";
         listFilter1.setAttribute("aria-label", "filtre populaire");
         listFilter1.setAttribute("tabindex", "0");
         const listFilter2 = this.createHtmlElementFilter(

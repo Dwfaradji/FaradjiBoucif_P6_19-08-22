@@ -1,5 +1,5 @@
-import photographerFactory from '../factories/photographer.js';
-import data from '../utils/dataPhotographe.js';
+import photographerFactory from "../factories/photographer.js";
+import data from "../utils/dataPhotographe.js";
 
 async function getPhotographers() {
     // Penser à remplacer par les données récupérées dans le json
@@ -13,7 +13,7 @@ async function getPhotographers() {
 
 async function displayData(photographers) {
     const photographersSection = document.querySelector(
-        '.photographer_section'
+        ".photographer_section"
     );
     photographers.forEach((photographer) => {
         const photographerModel = photographerFactory(photographer);

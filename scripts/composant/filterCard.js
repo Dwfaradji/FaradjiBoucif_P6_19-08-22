@@ -28,7 +28,7 @@ export default class FilterCard {
     // Trie le tableau des cards en fonction du parametre definie et return un tableau trier
     filterPopulaire() {
         this.getBtnFilter.innerHTML =
-            'Populaire  <i class="fas fa-chevron-down chevron"></i>';
+            "Populaire  <i class='fas fa-chevron-down chevron'></i>";
         this.arrayMedia.sort((a, b) => {
             return b.likes - a.likes;
         });
@@ -37,7 +37,7 @@ export default class FilterCard {
     }
     filterDate() {
         this.getBtnFilter.innerHTML =
-            'Date <i class="fas fa-chevron-down chevron"></i>';
+            "Date <i class='fas fa-chevron-down chevron'></i>";
         this.arrayMedia.sort((a, b) => {
             return new Date(b.date) - new Date(a.date);
         });
@@ -45,7 +45,7 @@ export default class FilterCard {
     }
     filterTitle() {
         this.getBtnFilter.innerHTML =
-            'Titre <i class="fas fa-chevron-down chevron"></i>';
+            "Titre <i class='fas fa-chevron-down chevron'></i>";
         this.arrayMedia.sort((a, b) => {
             return a.title.localeCompare(b.title);
         });

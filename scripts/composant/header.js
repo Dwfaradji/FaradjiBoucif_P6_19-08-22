@@ -1,6 +1,6 @@
 export default function displayDomSectionInfoPhotographer(info) {
     const picturePhotographe = `./assets/photographers/${info.portrait}`;
-    const header = document.querySelector('.photograph-header');
+    const header = document.querySelector(".photograph-header");
     header.innerHTML = `
   <div class="photograph-info" >
     <h1>${info.name}</h1>

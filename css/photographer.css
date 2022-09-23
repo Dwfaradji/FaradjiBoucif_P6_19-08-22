@@ -4,7 +4,6 @@
     z-index: 50;
     left: 0;
     top: 0;
-    height: 100%;
     width: 100%;
     overflow: auto;
     background-color: rgba(26, 39, 156, 0.4);
@@ -66,7 +65,7 @@ main {
     flex-direction: column;
     justify-content: space-between;
     padding: 35px;
-    margin: auto;
+    margin: 20px auto;
 }
 
 .modal header {
@@ -378,7 +377,7 @@ textarea {
     margin-top: -20px;
     right: 45px;
     cursor: pointer;
-    transition: transform 0.3s,opacity 0.3;
+    transition: transform 0.3s, opacity 0.3;
     color: #901C1C;
 }
 
@@ -397,7 +396,9 @@ textarea {
     font-size: x-large;
     color: #901C1C;
 }
-.carousel-prev-hidden,.carousel-next-hidden{
+
+.carousel-prev-hidden,
+.carousel-next-hidden {
     opacity: 0;
 }
 

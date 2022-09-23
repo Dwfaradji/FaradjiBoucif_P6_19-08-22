@@ -9,12 +9,13 @@ import BtnFiltre from "../composant/btnFiltre.js";
 import CardDom from "../composant/cardDom.js";
 import Carousel from "../composant/carousel.js";
 import BoxInfo from "../composant/boxInfo.js";
-// import Likes from "../composant/likes.js";
+import Likes from "../composant/likes.js";
 import FilterCard from "../composant/filterCard.js";
 import {
     onCloseModal,
     onOpenModal,
     getTabIndex,
+    keyboardLike,
 } from "../utils/accesibilite.js";
 // // Récupere les datas du photographe et les medias
 const dataPhotographe = await data();
@@ -23,7 +24,6 @@ const getMediaPhotographers = dataPhotographe.media;
 
 let arrayMedia = [];
 let arrayInfo = [];
-let countTotalLikes = 0;
 
 // Va récupérer Id du photographe recupérer dans url et va le comparer au fichier .json
 // et recuperera les informations du photographe et va le stocker dans un tableau
@@ -46,8 +46,6 @@ displayDomSectionInfoPhotographer(info);
 displayDomForm(info);
 openAndCloseListFilter();
 new FilterCard(arrayMedia, init);
-displayCountTotalLikes();
-new BoxInfo(countTotalLikes, info);
 init();
 
 // Display Formulaire
@@ -103,72 +101,31 @@ function displayCarousel() {
             e.preventDefault();
             onOpenModal("#container-carousel", "no-scroll");
             new Carousel(getContainerCarousel, index, arrayMedia, info);
-            getContainerCarousel.style.display = "block";
+            // getContainerCarousel.style.display = "block";
             getTabIndex("-1");
         });
+        keyboardLike(
+            getDomArticle,
+            arrayMedia,
+            Carousel,
+            getContainerCarousel,
+            index,
+            // arrayMedia,
+            info
+        );
     });
 }
 
-class Likes {
-    /**
-     * @param {HTMLElement} elementCard - element HTML qui cible les icones likes clicker
-     */
-    constructor(elementCard) {
-        this.targetIdCard = elementCard.id;
-        this.getIconLike = elementCard;
-        this.getCountLikes = elementCard.parentNode.outerText;
-
-        this.iconLike = "<i class='fas fa-heart'></i>";
-        this.iconDislike ="<i class='far fa-heart'></i>";
-        this.numberLikes = elementCard.parentNode.children[0];
-        this.addLikeCard(arrayMedia);
-        this.updateTotalLike();
-        this.numberLikes.innerHTML = this.updateLikes;
-    }
-
-    updateTotalLike() {
-        const getBoxInfo = document.querySelector(".total-likes");
-        getBoxInfo.innerHTML = countTotalLikes.toString();
-        getBoxInfo.innerHTML = countTotalLikes.toString();
-    }
-    /** @TODO modifier la condition pour que incrementation se fasse sur l'object  */
-    addLikeCard(getLikes) {
-        getLikes.forEach((getLike) => {
-            if (getLike.id == this.targetIdCard) {
-                if (getLike.data == false) {
-                    getLike.likes++;
-                    this.updateLikes = getLike.likes;
-                    countTotalLikes++;
-                    getLike.data = true;
-                    this.getIconLike.innerHTML = this.iconLike;
-                } else if (getLike.data == true) {
-                    getLike.data = false;
-                    getLike.likes--;
-                    this.updateLikes = getLike.likes;
-                    this.getIconLike.innerHTML = this.iconDislike;
-                    countTotalLikes--;
-                }
-            }
-        });
-    }
-}
-
+// keyboardLike(displayCarousel);
 function displayLikes() {
     const getLikeIcons = document.querySelectorAll(".icon-like");
     getLikeIcons.forEach((getLikeIcon) => {
         getLikeIcon.addEventListener("click", (e) => {
             e.preventDefault();
-            new Likes(getLikeIcon);
+            new Likes(getLikeIcon, arrayMedia);
         });
+        keyboardLike(getLikeIcon, arrayMedia, Likes);
     });
-}
-
-function displayCountTotalLikes() {
-    arrayMedia.forEach((element) => {
-        const likes = element.likes;
-        countTotalLikes += likes;
-    });
-    return countTotalLikes;
 }
 
 function init() {
@@ -176,3 +133,4 @@ function init() {
     displayCarousel();
     displayLikes();
 }
+new BoxInfo(info, arrayMedia);

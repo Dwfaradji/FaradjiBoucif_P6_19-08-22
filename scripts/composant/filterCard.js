@@ -1,4 +1,4 @@
-// import init from "../pages/photographer.js";
+// import { keyBoardFilter } from "../utils/accesibilite.js";
 export default class FilterCard {
     constructor(arrayMedia, init) {
         this.init = init;
@@ -8,13 +8,34 @@ export default class FilterCard {
         this.getfilterTitle = document.getElementById("filter_title");
         this.getBtnFilter = document.querySelector(".button-filter ");
         this.listenerFilterList();
+
+    
+        this.getfilterPopulaire.addEventListener("keyup", (e) => {
+            if (e.key === "Enter") {
+                this.filterPopulaire();
+            }
+        });
+
+        this.getfilterDate.addEventListener("keyup", (e) => {
+            if (e.key === "Enter") {
+                this.filterDate();
+            }
+        });
+        this.getfilterTitle.addEventListener("keyup", (e) => {
+            if (e.key === "Enter") {
+                this.filterTitle();
+            }
+        });
     }
+ 
+
     // Liste filtre
     listenerFilterList() {
         this.getfilterPopulaire.addEventListener(
             "click",
             this.filterPopulaire.bind(this)
         );
+
         this.getfilterDate.addEventListener(
             "click",
             this.filterDate.bind(this)

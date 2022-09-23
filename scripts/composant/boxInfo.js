@@ -1,15 +1,23 @@
+let countTotalLike = 0;
 export default class BoxInfo {
-    constructor(countTotalLikes,info) {
-        this.createDomBoxInfo(countTotalLikes,info);
+    constructor(info, arrayMedia) {
+        this.displayCountTotalLikes(arrayMedia);
+        this.createDomBoxInfo(info);
     }
-    createDomBoxInfo(countTotalLikes,info) {
+    displayCountTotalLikes(arrayMedia) {
+        arrayMedia.forEach((element) => {
+            const likes = element.likes;
+            countTotalLike += likes;
+        });
+    }
+    createDomBoxInfo(info) {
         const getBoxInfo = document.querySelector("#main");
         const div = document.createElement("div");
         div.className = "buble-info";
         div.innerHTML = `
-	  <span class="total-likes">${countTotalLikes}</span>
-    <span><i class="fas fa-heart"></i></span>
-    <span>${info.price}€ /jour</span> `;
+	        <span class="total-likes">${countTotalLike}</span>
+            <span><i class="fas fa-heart"></i></span>
+            <span>${info.price}€ /jour</span> `;
         getBoxInfo.appendChild(div);
     }
 }

@@ -43,47 +43,28 @@ export default class CardDom {
             "legende-box",
             "class"
         );
+        this.content.setAttribute("tabindex", "0");
+        this.legende.setAttribute("tabindex", "0");
         this.legende.innerHTML = `${card.title} 
-        <button tabindex="0">
+        <button role="like" aria-label="like media">
           <span class="likes">${card.likes}</span>
-          <span id="${card.id}" class="icon-like" aria-label="likes">${heart}</span>
+          <span id="${card.id}" class="icon-like" tabindex="0" aria-label="likes">${heart}</span>
         </button>`;
 
-        // if (card.image) {
-        //     this.displayPicure(card);
-        // } else if (card.video) {
-        //     this.displayVideo(card);
-        //     this.root.innerHTML = "<i class='fas fa-video video-icon'></i>";
-        // }
-        const test = mediaCard(card, this.info, this.content, this.root);
-        console.log(test);
-        if (test.video) {
+        const cardMediaIcone = mediaCard(
+            card,
+            this.info,
+            this.content,
+            this.root
+        );
+        if (cardMediaIcone.video) {
             this.root.innerHTML = "<i class='fas fa-video video-icon'></i>";
         }
         getContainerMedia.appendChild(this.root);
         this.root.appendChild(this.content);
         this.root.appendChild(this.legende);
     }
-    // displayPicure(pictureCard) {
-    //     let imgCard = `./assets/Sample Photos/${this.info.name}/${pictureCard.image}`;
-    //     this.picture = this.createBaliseWithClass("img", imgCard, "src");
-    //     this.picture.setAttribute("alt", "");
-    //     this.content.appendChild(this.picture);
-    // }
-    // displayVideo(movieCard) {
-    //     let videoCard = `./assets/Sample Photos/${this.info.name}/${movieCard.video}`;
-    //     this.video = this.createBaliseWithClass(
-    //         "video",
-    //         "",
-    //         "disablePictureInPicture"
-    //     );
-    // this.source = this.createBaliseWithClass("source", videoCard, "src");
-    // this.source.setAttribute("type", "video/mp4");
-    // this.video.setAttribute("title", movieCard.title);
-    //     this.content.appendChild(this.video);
-    //     this.video.appendChild(this.source);
-    //     return this.video;
-    // }
+
     /**
      *
      * @param {String} createElement - Création balise html

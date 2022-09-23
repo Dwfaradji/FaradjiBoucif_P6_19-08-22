@@ -11,6 +11,7 @@ export default class Carousel {
      */
 
     constructor(element, index, array, info, options = {}) {
+        element.style.display = "block";
         let indexElement = { element, index };
         this.element = element;
         this.arrayMedia = array;
@@ -26,7 +27,6 @@ export default class Carousel {
         );
 
         this.currentItem = 0;
-        console.log(this.currentItem);
         let firstArrayElement = [];
         let lastArrayElement = [];
 
@@ -67,21 +67,10 @@ export default class Carousel {
         });
     }
 
-    // displayPicure(image) {
-    //     let imgCard = `./assets/Sample Photos/${this.info.name}/${image}`;
-    //     this.picture = this.createBaliseWithClass("img", imgCard, "src");
-    //     this.picture.setAttribute("alt", "");
-    // }
-    // displayVideo(video) {
-    //     let videoCard = `./assets/Sample Photos/${this.info.name}/${video}`;
-    //     this.video = this.createBaliseWithClass("video", "", "controls");
-    //     this.source = this.createBaliseWithClass("source", videoCard, "src");
-    //     this.source.setAttribute("type", "video/mp4");
-    //     this.video.setAttribute("tabindex", "-1");
-    // }
     createDomCarousel() {
         this.root = this.createBaliseWithClass("section", "carousel", "class");
         this.root.setAttribute("tabindex", "0");
+        // this.root.setAttribute("aria-hidden", "false");
         this.root.setAttribute("aria-label", "Vue de l'image en grand");
         this.container = this.createDivWithClass("carousel-container");
 
@@ -105,21 +94,11 @@ export default class Carousel {
                 "class"
             );
             this.legendeCarousel.innerHTML = element.title;
+            const cardMedia = mediaCard(element, this.info, this.item);
 
-            // if (element.image) {
-            //     this.displayPicure(element.image, element.title);
-            //     this.item.appendChild(this.picture);
-            // } else if (element.video) {
-            //     this.displayVideo(element.video);
-            //     this.item.appendChild(this.video);
-            //     this.video.appendChild(this.source);
-            // }
-
-            const test = mediaCard(element, this.info, this.item);
-
-            if (test.video) {
-                test.video.setAttribute("controls", "");
-                test.video.setAttribute("tabindex", "-1");
+            if (cardMedia.video) {
+                cardMedia.video.setAttribute("controls", "");
+                cardMedia.video.setAttribute("tabindex", "-1");
             }
             this.item.appendChild(this.legendeCarousel);
         });

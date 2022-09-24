@@ -7,14 +7,13 @@ export default function photographerFactory(data) {
     function getUserCardDOM() {
         const article = document.createElement("article");
         article.innerHTML = `
-    <a href="photographer.html?id=${data.id}">
-    <img src="${picture}" alt=""/>
-    <h2>${name}</h2>   
-        <span class="locality">${city}, ${country} </span>
-    <p>${tagline}</p>
-    <span class="color-text-secondaire">${price}€/jour</span>
-    </a>
-    `;
+            <a href="photographer.html?id=${data.id}">
+                <img src="${picture}" alt=""/>
+                <h2>${name}</h2>   
+                <span class="locality">${city}, ${country} </span>
+                <p>${tagline}</p>
+                <span class="color-text-secondaire">${price}€/jour</span>
+            </a>`;
         return article;
     }
     return { name, picture, id, getUserCardDOM };

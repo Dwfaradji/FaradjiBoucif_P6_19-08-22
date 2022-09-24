@@ -13,11 +13,13 @@ export default class BoxInfo {
     createDomBoxInfo(info) {
         const getBoxInfo = document.querySelector("#main");
         const div = document.createElement("div");
+        div.setAttribute("aria-label", "information");
+        div.setAttribute("tabindex", "0");
         div.className = "buble-info";
         div.innerHTML = `
 	        <span class="total-likes">${countTotalLike}</span>
-            <span aria-label ="likes"><i class="fas fa-heart"></i></span>
-            <span>${info.price}€ /jour</span> `;
+            <span title="likes" ><i class="fas fa-heart" ></i></span>
+            <span >${info.price}€ /jour</span> `;
         getBoxInfo.appendChild(div);
     }
 }

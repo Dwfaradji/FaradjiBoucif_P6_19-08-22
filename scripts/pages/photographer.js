@@ -101,7 +101,6 @@ function displayCarousel() {
             e.preventDefault();
             onOpenModal("#container-carousel", "no-scroll");
             new Carousel(getContainerCarousel, index, arrayMedia, info);
-            // getContainerCarousel.style.display = "block";
             getTabIndex("-1");
         });
         keyboardLike(
@@ -110,13 +109,11 @@ function displayCarousel() {
             Carousel,
             getContainerCarousel,
             index,
-            // arrayMedia,
             info
         );
     });
 }
 
-// keyboardLike(displayCarousel);
 function displayLikes() {
     const getLikeIcons = document.querySelectorAll(".icon-like");
     getLikeIcons.forEach((getLikeIcon) => {

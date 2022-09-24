@@ -59,6 +59,7 @@ export default class Carousel {
         });
         this.arrayElementDom = firstArray.concat(lastArray);
     }
+
     getHtmlElement() {
         let carouselContainer = document.querySelector(".carousel-container");
         let children = [].slice.call(carouselContainer.children);
@@ -70,14 +71,12 @@ export default class Carousel {
     createDomCarousel() {
         this.root = this.createBaliseWithClass("section", "carousel", "class");
         this.root.setAttribute("tabindex", "0");
-        // this.root.setAttribute("aria-hidden", "false");
         this.root.setAttribute("aria-label", "Vue de l'image en grand");
-        this.container = this.createDivWithClass("carousel-container");
 
+        this.container = this.createDivWithClass("carousel-container");
         // boucle sur les image et supprime les doublons
         this.element.appendChild(this.root);
         this.root.appendChild(this.container);
-
         this.arrayElementDom.map((element) => {
             this.carouselItems = this.createBaliseWithClass(
                 "div",
@@ -86,21 +85,23 @@ export default class Carousel {
             );
 
             this.item = this.createBaliseWithClass("div", "item", "class");
-            this.container.appendChild(this.carouselItems);
-            this.carouselItems.appendChild(this.item);
+
             this.legendeCarousel = this.createBaliseWithClass(
                 "h2",
                 "carousel-sous-titre",
                 "class"
             );
             this.legendeCarousel.innerHTML = element.title;
+
+            this.container.appendChild(this.carouselItems);
+            this.carouselItems.appendChild(this.item);
             const cardMedia = mediaCard(element, this.info, this.item);
+            this.item.appendChild(this.legendeCarousel);
 
             if (cardMedia.video) {
                 cardMedia.video.setAttribute("controls", "");
                 cardMedia.video.setAttribute("tabindex", "-1");
             }
-            this.item.appendChild(this.legendeCarousel);
         });
     }
 
@@ -131,6 +132,7 @@ export default class Carousel {
         nextButton.innerHTML = "<i class='fas fa-chevron-right'></i>";
         nextButton.setAttribute("aria-label", "Next image");
         nextButton.setAttribute("tabindex", "0");
+        
         let prevButton = this.createBaliseWithClass(
             "button",
             "carousel-prev",
@@ -139,6 +141,7 @@ export default class Carousel {
         prevButton.innerHTML = "<i class='fas fa-chevron-left'></i>";
         prevButton.setAttribute("aria-label", "Previous image");
         prevButton.setAttribute("tabindex", "0");
+
         let exitButton = this.createBaliseWithClass(
             "button",
             "carousel-exit",
@@ -148,9 +151,11 @@ export default class Carousel {
         exitButton.innerHTML = "<i class='fas fa-times'></i>";
         exitButton.setAttribute("aria-label", "Close dialog");
         exitButton.setAttribute("tabindex", "0");
+
         this.root.appendChild(prevButton);
         this.root.appendChild(nextButton);
         this.root.appendChild(exitButton);
+
         nextButton.addEventListener("click", this.next.bind(this));
         prevButton.addEventListener("click", this.prev.bind(this));
         exitButton.addEventListener("click", this.exit.bind(this));

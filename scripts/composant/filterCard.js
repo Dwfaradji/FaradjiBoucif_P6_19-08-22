@@ -1,4 +1,3 @@
-// import { keyBoardFilter } from "../utils/accesibilite.js";
 export default class FilterCard {
     constructor(arrayMedia, init) {
         this.init = init;
@@ -9,7 +8,6 @@ export default class FilterCard {
         this.getBtnFilter = document.querySelector(".button-filter ");
         this.listenerFilterList();
 
-    
         this.getfilterPopulaire.addEventListener("keyup", (e) => {
             if (e.key === "Enter") {
                 this.filterPopulaire();
@@ -53,9 +51,9 @@ export default class FilterCard {
         this.arrayMedia.sort((a, b) => {
             return b.likes - a.likes;
         });
-
         this.init();
     }
+
     filterDate() {
         this.getBtnFilter.innerHTML =
             "Date <i class='fas fa-chevron-down chevron'></i>";
@@ -64,6 +62,7 @@ export default class FilterCard {
         });
         this.init();
     }
+
     filterTitle() {
         this.getBtnFilter.innerHTML =
             "Titre <i class='fas fa-chevron-down chevron'></i>";

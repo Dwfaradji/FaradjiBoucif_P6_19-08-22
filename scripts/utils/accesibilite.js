@@ -48,13 +48,4 @@ function keyboardLike(
     });
 }
 
-// function keyBoardFilter(elementFilter, filter) {
-//     console.log(filter());
-//     elementFilter.addEventListener("keyup", (e) => {
-//         if (e.key === "Enter") {
-//             filter;
-//         }
-//     });
-// }
-
 export { onOpenModal, onCloseModal, getTabIndex, keyboardLike };

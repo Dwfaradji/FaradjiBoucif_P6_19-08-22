@@ -1,8 +1,5 @@
 
 export default function getPhotographerId(arrays, newArray) {
-    // Récupere les datas du photographe et les medias
-
-
     //- Récupération de la chaine de requète dans l'url
     const urlId = window.location.search;
     //-Extraction de l'Id

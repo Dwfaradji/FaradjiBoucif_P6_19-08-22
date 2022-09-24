@@ -18,6 +18,7 @@
   <header class="header-index">
     <a href="./index.html" class="href"> <img src="assets/images/logo.png" alt="Fisheye Home page" class="logo" /></a>
   </header>
+
   <main id="main" aria-hidden="false">
     <section class="photograph-header">
     </section>
@@ -27,13 +28,14 @@
     </section>
     <!-- Fin du HTML a injecter Selection -->
   </main>
+
   <div id="contact_modal" aria-hidden="true" role="dialog" aria-labelledby="formulaire" tabindex="0">
     <div id="formulaire" class="modal">
       <header>
-        <h2>Contactez-moi</h2>
+        <h1>Contactez-moi <br><span id="contact-name"> </span> </h1>
         <button class="close-modal" tabindex="0" aria-label="Close Contact form"><i class="fas fa-times"></i></button>
       </header>
-      <h2 id="contact-name"></h2>
+      <!-- <h1 id="contact-name"></h1> -->
       <form id="form-contact">
         <div>
           <label for="prenon">Prénom</label>
@@ -48,11 +50,9 @@
         <button id="btn-envoyer" aria-label="Send" class="contact_button close-modal">Envoyer</button>
       </form>
     </div>
-
   </div>
-  <script type="module" src="scripts/pages/photographer.js" defer></script>
-  <!-- <script type="module" src="scripts/utils/contactForm.js" defer></script> -->
 
+  <script type="module" src="scripts/pages/photographer.js" defer></script>
 </body>
 
 </html>

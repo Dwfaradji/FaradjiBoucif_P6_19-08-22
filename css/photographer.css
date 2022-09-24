@@ -6,8 +6,6 @@
     top: 0;
     width: 100%;
     overflow: auto;
-    background-color: rgba(26, 39, 156, 0.4);
-
 }
 
 button {
@@ -16,14 +14,9 @@ button {
     color: #901C1C;
 }
 
-/* * {
-    border: 2px solid black;
-} */
-
 main {
     margin: 0 100px;
     margin-bottom: 3em;
-
 }
 
 .no-scroll {
@@ -64,7 +57,7 @@ main {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: 35px;
+    padding: 15px;
     margin: 20px auto;
 }
 
@@ -83,10 +76,10 @@ main {
     color: #FAFAFA;
 }
 
-.modal header h2 {
+.modal header h1 {
     font-size: 45px;
     font-weight: normal;
-    text-align: center;
+    text-align: left;
     margin: 0;
 }
 
@@ -105,7 +98,7 @@ form label {
 form div {
     display: flex;
     flex-direction: column;
-    width: 100%;
+    width: 99%;
     align-items: self-start;
     margin-bottom: 26px;
 }
@@ -158,7 +151,6 @@ textarea {
     margin: 10px;
     font-size: 30px;
     color: #901C1C;
-
 }
 
 .card-media .legende-box {
@@ -207,29 +199,21 @@ textarea {
     transition: transform 0.3s;
 }
 
-
-
 .heart {
     color: #901C1C
 }
 
 .heart-vide {
     display: none;
-
 }
 
 .heart-plein {
     display: block;
 }
 
-
-
-
 .photographe-info {
     color: #525252;
 }
-
-
 
 .btn-hover:hover,
 .btn-hover:focus {
@@ -246,7 +230,6 @@ textarea {
 .photographMedias__filtersMenu--list>li:last-child:before {
     border: none;
 }
-
 
 .button-filter {
     background-color: #901C1C;
@@ -269,12 +252,10 @@ textarea {
     pointer-events: none;
 }
 
-
 .chevron {
     display: flex !important;
     float: right;
     line-height: unset !important;
-    /* margin-right: 14px; */
 }
 
 .filter {
@@ -307,14 +288,11 @@ textarea {
     font-weight: bold;
     color: white;
     padding: 10px 10px 10px 17px;
-    /* padding-left: 27px; */
     height: 50px;
     border: none;
     background-color: #901C1C;
     cursor: pointer;
     position: relative;
-    /* border-bottom: 1px solid white; */
-
 }
 
 .title {
@@ -408,7 +386,6 @@ textarea {
 }
 
 .carousel-prev {
-
     right: auto;
     left: 45px;
 }
@@ -461,11 +438,48 @@ textarea {
     .modal header {
         flex-direction: column-reverse;
     }
+
+    #container-media {
+        justify-content: center;
+        padding-bottom: 5em;
+    }
+
+    .carousel {
+        width: 100%;
+    }
+
+    .carousel-next,
+    .carousel-exit {
+        right: 0;
+    }
+
+    .carousel-prev {
+        left: 0;
+    }
+
+    .item {
+        width: 80%;
+    }
+
+    .modal header h1 {
+        width: 75%;
+        font-size: 35px;
+    }
+
+    .modal {
+        width: auto;
+        margin: 10px;
+        padding: 14px;
+        font-size: 35px;
+    }
+
+    .buble-info {
+        right: 0;
+    }
 }
 
 @media (max-width: 962px) {
     .photographMedias__filtersMenu--list {
         left: 94px;
     }
-
 }

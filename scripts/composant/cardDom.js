@@ -1,4 +1,5 @@
 import mediaCard from "../factories/mediaCard.js";
+
 export default class CardDom {
     constructor(elementCard, info) {
         this.info = info;
@@ -41,18 +42,16 @@ export default class CardDom {
             "figure-box",
             "class"
         );
+        this.content.setAttribute("tabindex", "0");
         this.legende = this.createBaliseWithClass(
             "figcaption",
             "legende-box",
             "class"
         );
-        this.content.setAttribute("tabindex", "0");
-        // this.legende.setAttribute("tabindex", "0");
-
         this.legende.innerHTML = `${card.title} 
         <button role="button" aria-label="like media" tabindex="0">
             <span class="likes" tabindex="0">${card.likes}</span>
-            <span id="${card.id}" class="icon-like" tabindex="0" aria-label="likes">${heart}</span>
+            <span id="${card.id}" class="icon-like" tabindex="0" role="button" aria-label="likes">${heart}</span>
         </button>`;
 
         const cardMediaIcone = mediaCard(

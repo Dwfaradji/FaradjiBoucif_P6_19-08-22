@@ -16,7 +16,7 @@ export default class BtnFiltre {
             "Populaire <i class='fas fa-chevron-down chevron'></i>";
         btnFilter.setAttribute("aria-label", "boutton trier");
         btnFilter.setAttribute("tabindex", "0");
-        btnFilter.setAttribute("aria-labelledby", "Choisissez buttonFilter");
+        btnFilter.setAttribute("aria-labelledby", "buttonFilter");
         btnFilter.setAttribute("aria-haspopup", "listbox");
         btnFilter.setAttribute("aria-expanded", "true");
 
@@ -28,7 +28,7 @@ export default class BtnFiltre {
         );
         filterList.setAttribute("aria-hidden", "true");
         filterList.setAttribute("role", "listbox");
-        filterList.setAttribute("aria-labelledby", "Choisissez");
+        filterList.setAttribute("aria-labelledby", "buttonFilter");
         filterList.setAttribute("tabindex", "-1");
 
         const listFilter1 = this.createHtmlElementFilter(

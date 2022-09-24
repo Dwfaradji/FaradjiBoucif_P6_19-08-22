@@ -16,7 +16,7 @@ export default class BoxInfo {
         div.className = "buble-info";
         div.innerHTML = `
 	        <span class="total-likes">${countTotalLike}</span>
-            <span><i class="fas fa-heart"></i></span>
+            <span aria-label ="likes"><i class="fas fa-heart"></i></span>
             <span>${info.price}€ /jour</span> `;
         getBoxInfo.appendChild(div);
     }

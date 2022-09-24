@@ -1,4 +1,4 @@
-import data from "../utils/dataPhotographe.js";
+import data from "../utils/dataPhotographe.js";         
 import photographerFactory from "../factories/photographer.js";
 
 async function getPhotographers() {

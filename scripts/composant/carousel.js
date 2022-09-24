@@ -129,7 +129,7 @@ export default class Carousel {
             "class"
         );
         nextButton.innerHTML = "<i class='fas fa-chevron-right'></i>";
-        nextButton.setAttribute("title", "suivante");
+        nextButton.setAttribute("aria-label", "Next image");
         nextButton.setAttribute("tabindex", "0");
         let prevButton = this.createBaliseWithClass(
             "button",
@@ -137,7 +137,7 @@ export default class Carousel {
             "class"
         );
         prevButton.innerHTML = "<i class='fas fa-chevron-left'></i>";
-        prevButton.setAttribute("title", "précedent");
+        prevButton.setAttribute("aria-label", "Previous image");
         prevButton.setAttribute("tabindex", "0");
         let exitButton = this.createBaliseWithClass(
             "button",
@@ -146,7 +146,7 @@ export default class Carousel {
         );
 
         exitButton.innerHTML = "<i class='fas fa-times'></i>";
-        exitButton.setAttribute("title", "fermer");
+        exitButton.setAttribute("aria-label", "Close dialog");
         exitButton.setAttribute("tabindex", "0");
         this.root.appendChild(prevButton);
         this.root.appendChild(nextButton);

@@ -36,19 +36,23 @@ export default class CardDom {
             "class"
         );
         this.root.setAttribute("tabindex", "0");
-
-        this.content = this.createBaliseWithClass("div", "figure-box", "class");
+        this.content = this.createBaliseWithClass(
+            "figure",
+            "figure-box",
+            "class"
+        );
         this.legende = this.createBaliseWithClass(
-            "div",
+            "figcaption",
             "legende-box",
             "class"
         );
         this.content.setAttribute("tabindex", "0");
-        this.legende.setAttribute("tabindex", "0");
+        // this.legende.setAttribute("tabindex", "0");
+
         this.legende.innerHTML = `${card.title} 
-        <button role="like" aria-label="like media">
-          <span class="likes">${card.likes}</span>
-          <span id="${card.id}" class="icon-like" tabindex="0" aria-label="likes">${heart}</span>
+        <button role="button" aria-label="like media" tabindex="0">
+            <span class="likes" tabindex="0">${card.likes}</span>
+            <span id="${card.id}" class="icon-like" tabindex="0" aria-label="likes">${heart}</span>
         </button>`;
 
         const cardMediaIcone = mediaCard(

@@ -13,10 +13,10 @@
 </head>
 
 <body>
-  <div id="container-carousel" aria-hidden="true" role="carousel"></div>
+  <div id="container-carousel" aria-label="image closeup view" aria-hidden="true" role="carousel"></div>
 
   <header class="header-index">
-    <a href="./index.html" class="href"> <img src="assets/images/logo.png" alt="Fisheye" class="logo" /></a>
+    <a href="./index.html" class="href"> <img src="assets/images/logo.png" alt="Fisheye Home page" class="logo" /></a>
   </header>
   <main id="main" aria-hidden="false">
     <section class="photograph-header">
@@ -25,28 +25,27 @@
     </div>
     <section id="container-media">
     </section>
-
     <!-- Fin du HTML a injecter Selection -->
   </main>
-  <div id="contact_modal" aria-hidden="true" role="dialog" aria-describedby="formulaire" tabindex="">
+  <div id="contact_modal" aria-hidden="true" role="dialog" aria-labelledby="formulaire" tabindex="0">
     <div id="formulaire" class="modal">
       <header>
         <h2>Contactez-moi</h2>
-        <button class="close-modal" tabindex="0" aria-label="fermer"><i class="fas fa-times"></i></button>
+        <button class="close-modal" tabindex="0" aria-label="Close Contact form"><i class="fas fa-times"></i></button>
       </header>
       <h2 id="contact-name"></h2>
       <form id="form-contact">
         <div>
           <label for="prenon">Prénom</label>
-          <input type="text" id="prenon">
+          <input type="text" id="prenon" aria-label="First name">
           <label for="nom">Nom</label>
-          <input type="text" id="nom" />
+          <input type="text" id="nom" aria-label="Last name" />
           <label for="email">Email</label>
-          <input type="text" id="email" />
+          <input type="text" id="email" aria-label="Email" />
           <label for="message">Votre Message</label>
-          <textarea name="message" id="message" cols="30" rows="10"></textarea>
+          <textarea aria-label="Your message" name="message" id="message" cols="30" rows="10"></textarea>
         </div>
-        <button id="btn-envoyer" class="contact_button close-modal">Envoyer</button>
+        <button id="btn-envoyer" aria-label="Send" class="contact_button close-modal">Envoyer</button>
       </form>
     </div>
 

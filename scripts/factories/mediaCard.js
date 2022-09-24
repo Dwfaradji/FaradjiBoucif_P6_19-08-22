@@ -9,6 +9,7 @@ class displayPicure {
         let imgCard = `./assets/Sample Photos/${info.name}/${pictureCard.image}`;
         this.picture = createBaliseWithClass("img", imgCard, "src");
         this.picture.setAttribute("alt", "");
+        this.picture.setAttribute("aria-label", "image");
         content.appendChild(this.picture);
     }
 }
@@ -22,7 +23,7 @@ class displayVideo {
         );
         this.source = createBaliseWithClass("source", videoCard, "src");
         this.source.setAttribute("type", "video/mp4");
-        this.video.setAttribute("title", movieCard.title);
+        this.video.setAttribute("aria-label", "video");
         content.appendChild(this.video);
         this.video.appendChild(this.source);
     }

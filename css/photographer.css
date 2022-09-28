@@ -58,6 +58,7 @@ main {
     z-index: 50;
     left: 0;
     top: 0;
+    right: 0;
     width: 100%;
     overflow: auto;
 }
@@ -290,7 +291,7 @@ main {
     width: 250px;
     position: fixed;
     bottom: 0px;
-    right: 100px;
+    right: 64px;
     background-color: #D3573C;
     color: black;
     text-align: center;

@@ -47,5 +47,12 @@ function keyboardLike(
         }
     });
 }
+function keyPreventDefault() {
+    document.addEventListener("keypress", (e) => {
+        e.preventDefault();
+        console.log("coucou");
+    });
+}
+keyPreventDefault();
 
 export { onOpenModal, onCloseModal, getTabIndex, keyboardLike };

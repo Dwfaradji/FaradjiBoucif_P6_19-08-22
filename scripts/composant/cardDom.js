@@ -47,7 +47,7 @@ export default class CardDom {
             "class"
         );
         this.legende.innerHTML = `${card.title} 
-        <button role="button" aria-label="like media" tabindex="0">
+        <button class="btn-like" role="button" aria-label="like media" tabindex="0">
             <span class="likes" tabindex="0">${card.likes}</span>
             <span id="${card.id}" class="icon-like" tabindex="0" role="button" aria-label="likes">${heart}</span>
         </button>`;

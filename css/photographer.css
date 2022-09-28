@@ -268,10 +268,14 @@ main {
 }
 
 .card-media .legende-box {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 1fr 0fr;
     margin: 5px;
     color: #901C1C;
+}
+
+.btn-like {
+    display: flex;
 }
 
 .icon-like {

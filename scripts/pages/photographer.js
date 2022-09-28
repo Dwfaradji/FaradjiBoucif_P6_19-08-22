@@ -1,3 +1,4 @@
+"use strict";
 // Mettre le code JavaScript lié à la page photographer.html
 // Import
 import data from "../utils/dataPhotographe.js";
@@ -45,30 +46,36 @@ const access = "#contact_modal";
 
 displayDomSectionInfoPhotographer(info);
 displayDomForm(info);
-openAndCloseListFilter();
+openAndCloseListFilter("click");
+openAndCloseListFilter("keypress");
 new FilterCard(arrayMedia, init);
 init();
 
-// Display Formulaire
-const getBtnContact = document.querySelector(".contact_button");
-getBtnContact.addEventListener("click", () => {
-    getTabIndex("-1");
-    onOpenModal("#contact_modal", "no-scroll");
-    displayModal();
-});
-// Close Formulaire
-getCloseModals.forEach((getCloseModal) => {
-    getCloseModal.addEventListener("click", () => {
-        onCloseModal(access, "no-scroll");
-        closeModal();
-        getTabIndex("0");
+function openFormulaire() {
+    const getBtnContact = document.querySelector(".contact_button");
+    getBtnContact.addEventListener("click", () => {
+        getTabIndex("-1");
+        onOpenModal("#contact_modal", "no-scroll");
+        displayModal();
     });
-});
+}
+openFormulaire();
 
-function openAndCloseListFilter() {
-    main.addEventListener("click", (e) => {
+function closeFormulaire() {
+    getCloseModals.forEach((getCloseModal) => {
+        getCloseModal.addEventListener("click", () => {
+            onCloseModal(access, "no-scroll");
+            closeModal();
+            getTabIndex("0");
+        });
+    });
+}
+closeFormulaire();
+
+function openAndCloseListFilter(typeEvent) {
+    main.addEventListener(typeEvent, (e) => {
         e.preventDefault();
-        getFilterList.addEventListener("click", () => {
+        getFilterList.addEventListener(typeEvent, () => {
             onCloseModal("#filterList", "sroll");
         });
         if (e.target.id !== "buttonFilter") {

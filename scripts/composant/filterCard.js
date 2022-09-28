@@ -12,37 +12,21 @@ export default class FilterCard {
         this.getfilterDate = document.getElementById("filter_date");
         this.getfilterTitle = document.getElementById("filter_title");
         this.getBtnFilter = document.querySelector(".button-filter ");
-        this.listenerFilterList();
-
-        this.getfilterPopulaire.addEventListener("keyup", (e) => {
-            if (e.key === "Enter") {
-                this.filterPopulaire();
-            }
-        });
-        this.getfilterDate.addEventListener("keyup", (e) => {
-            if (e.key === "Enter") {
-                this.filterDate();
-            }
-        });
-        this.getfilterTitle.addEventListener("keyup", (e) => {
-            if (e.key === "Enter") {
-                this.filterTitle();
-            }
-        });
+        this.listenerFilterList("click");
+        this.listenerFilterList("keypress");
     }
     // Liste filtre
-    listenerFilterList() {
+    listenerFilterList(typeEvent) {
         this.getfilterPopulaire.addEventListener(
-            "click",
+            typeEvent,
             this.filterPopulaire.bind(this)
         );
-
         this.getfilterDate.addEventListener(
-            "click",
+            typeEvent,
             this.filterDate.bind(this)
         );
         this.getfilterTitle.addEventListener(
-            "click",
+            typeEvent,
             this.filterTitle.bind(this)
         );
     }
@@ -64,7 +48,6 @@ export default class FilterCard {
         });
         this.init();
     }
-
     filterTitle() {
         this.getBtnFilter.innerHTML =
             "Titre <i class='fas fa-chevron-down chevron'></i>";

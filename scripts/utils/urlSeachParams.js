@@ -6,7 +6,6 @@ export default function getPhotographerId(arrays, newArray) {
     const urlSearchParams = new URLSearchParams(urlId);
     //- Récupere id photographe
     const getUrlId = urlSearchParams.get("id");
-
     arrays.forEach((array) => {
         array.data = false;
         if (array.photographerId == getUrlId || array.id == getUrlId) {

@@ -1,6 +1,9 @@
 export default class Likes {
     /**
-     * @param {HTMLElement} elementCard - element HTML qui cible les icones likes clicker
+     * Incrémentation du total des likes et la gestion de l'icône.
+     * @param {HTMLElement} elementCard - element HTML qui cible icône like
+     * @param {Array} arrayMedia - Tableau media qui va nous
+     * permettre de récupérer tous les likes
      */
     constructor(elementCard, arrayMedia) {
         this.targetIdCard = elementCard.id;
@@ -30,7 +33,10 @@ export default class Likes {
         getBoxInfo.innerHTML = this.countTotalLikes.toString();
         getBoxInfo.innerHTML = this.countTotalLikes.toString();
     }
-
+    /**
+     *
+     * @param {Array} getLikes - Récupère tous les likes
+     */
     addLikeCard(getLikes) {
         getLikes.forEach((getLike) => {
             if (getLike.id == this.targetIdCard) {

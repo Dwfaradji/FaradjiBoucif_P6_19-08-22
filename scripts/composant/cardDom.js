@@ -1,22 +1,18 @@
 import mediaCard from "../factories/mediaCard.js";
 
 export default class CardDom {
+    /**
+     * Construction du DOM de la galerie Media
+     * @param {Object} elementCard - object des info de la card Media
+     * @param {Object} info - récupere les info personel du photographes
+     */
+
     constructor(elementCard, info) {
         this.info = info;
         this.element = elementCard;
         this.CreateCardDom(elementCard);
         this.displayHeart();
     }
-
-    /**
-     *
-     * @param {Object} element - object des info de la card
-     * @param {String} image - Nom de l'image + extension
-     * @param {String} video - Non de la video + extension
-     * @param {String} title - Titre de l'image
-     * @param {Number} likes - Nombre de like
-     * @param {Number} id - id de la card
-     */
 
     displayHeart() {
         if (this.element.data == false) {
@@ -27,7 +23,9 @@ export default class CardDom {
             return iconLike;
         }
     }
-
+    /**
+     * @param {Object} card - Element de Object
+     */
     CreateCardDom(card) {
         const getContainerMedia = document.getElementById("container-media");
         let heart = this.displayHeart();
@@ -67,9 +65,7 @@ export default class CardDom {
         this.root.appendChild(this.content);
         this.root.appendChild(this.legende);
     }
-
     /**
-     *
      * @param {String} createElement - Création balise html
      * @param {String} valueAttribut - Valeur de l'attribut
      * @param {String} attribute - Ajout atrributes

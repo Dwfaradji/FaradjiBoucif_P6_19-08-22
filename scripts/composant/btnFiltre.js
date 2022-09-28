@@ -1,3 +1,7 @@
+/**
+ * Construction HTML du boutton et de la liste filtre
+ */
+
 export default class BtnFiltre {
     constructor() {
         this.btnFiltre();
@@ -24,7 +28,7 @@ export default class BtnFiltre {
             "ul",
             "id",
             "filterList",
-            "photographMedias__filtersMenu--list"
+            "filtersMenu-list "
         );
         filterList.setAttribute("aria-hidden", "true");
         filterList.setAttribute("role", "listbox");
@@ -71,7 +75,14 @@ export default class BtnFiltre {
         filterList.appendChild(listFilter2);
         filterList.appendChild(listFilter3);
     }
-
+    /**
+     *
+     * @param {string} balise - Balise html à créer
+     * @param {string} attribute - Le nom de l'attribut
+     * @param {string} valueAttribut - La valeur de l'attribut   
+     * @param {string} className - Le nom de la classe
+     * @returns {HTMLElement} - Retourne element créer
+     */
     createHtmlElementFilter(balise, attribute, valueAttribut, className) {
         let createBaliseDom = document.createElement(balise);
         createBaliseDom.setAttribute(attribute, valueAttribut);

@@ -3,6 +3,7 @@ import { onCloseModal, getTabIndex } from "../utils/accesibilite.js";
 import mediaCard from "../factories/mediaCard.js";
 export default class Carousel {
     /**
+     * Gestion de la lightBox ainsi que l'accessibilité au clavier
      * @param {HTMLElement} element
      * @param {Object} options
      * @param {Object} options.slidesToScroll nombres d'element a faire défiler
@@ -21,7 +22,6 @@ export default class Carousel {
             {
                 slidesToScroll: 1,
                 slidesVisible: 1,
-                loop: true,
             },
             options
         );
@@ -132,7 +132,7 @@ export default class Carousel {
         nextButton.innerHTML = "<i class='fas fa-chevron-right'></i>";
         nextButton.setAttribute("aria-label", "Next image");
         nextButton.setAttribute("tabindex", "0");
-        
+
         let prevButton = this.createBaliseWithClass(
             "button",
             "carousel-prev",

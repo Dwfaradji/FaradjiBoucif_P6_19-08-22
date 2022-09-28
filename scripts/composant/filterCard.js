@@ -1,4 +1,10 @@
 export default class FilterCard {
+    /**
+     * Trier les card media en fonction du filtre selectionner
+     * @param {Array} arrayMedia - Tableau contenant tout les media
+     *  de photographes
+     * @param {*} init - Initialise le dom
+     */
     constructor(arrayMedia, init) {
         this.init = init;
         this.arrayMedia = arrayMedia;
@@ -13,7 +19,6 @@ export default class FilterCard {
                 this.filterPopulaire();
             }
         });
-
         this.getfilterDate.addEventListener("keyup", (e) => {
             if (e.key === "Enter") {
                 this.filterDate();
@@ -25,8 +30,6 @@ export default class FilterCard {
             }
         });
     }
- 
-
     // Liste filtre
     listenerFilterList() {
         this.getfilterPopulaire.addEventListener(
@@ -43,8 +46,8 @@ export default class FilterCard {
             this.filterTitle.bind(this)
         );
     }
-
-    // Trie le tableau des cards en fonction du parametre definie et return un tableau trier
+    /** Trie le tableau des cards en fonction du parametre definie et
+     * return un tableau trier */
     filterPopulaire() {
         this.getBtnFilter.innerHTML =
             "Populaire  <i class='fas fa-chevron-down chevron'></i>";
@@ -53,7 +56,6 @@ export default class FilterCard {
         });
         this.init();
     }
-
     filterDate() {
         this.getBtnFilter.innerHTML =
             "Date <i class='fas fa-chevron-down chevron'></i>";

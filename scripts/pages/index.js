@@ -1,9 +1,9 @@
-import data from "../utils/dataPhotographe.js";         
+import data from "../utils/dataPhotographe.js";
 import photographerFactory from "../factories/photographer.js";
 
 async function getPhotographers() {
-    // Penser à remplacer par les données récupérées dans le json
     const dataPhotographe = await data();
+    // Penser à remplacer par les données récupérées dans le json
     const photographers = dataPhotographe.photographers;
     // et bien retourner le tableau photographers seulement une fois
     return {

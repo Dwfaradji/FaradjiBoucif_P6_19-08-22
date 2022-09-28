@@ -4,6 +4,10 @@ let infoContact = {
     email: null,
     message: null,
 };
+/**
+ *Formulaire de contact qui reception les données dans console.log
+ * @param {Object} info - recupere le nom du Photographe
+ */
 export default function displayDomForm(info) {
     const nameContact = document.getElementById("contact-name");
     nameContact.innerHTML = info.name;

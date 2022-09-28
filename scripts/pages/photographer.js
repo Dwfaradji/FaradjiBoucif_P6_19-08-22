@@ -18,6 +18,7 @@ import {
     keyboardLike,
 } from "../utils/accesibilite.js";
 // // Récupere les datas du photographe et les medias
+
 const dataPhotographe = await data();
 const getInfoPhotographers = dataPhotographe.photographers;
 const getMediaPhotographers = dataPhotographe.media;
@@ -80,7 +81,7 @@ function openAndCloseListFilter() {
         }
     });
 }
-
+// Affiche le dom
 function deleteDom() {
     while (getContainerMedia.firstChild) {
         getContainerMedia.removeChild(getContainerMedia.firstChild);

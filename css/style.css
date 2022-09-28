@@ -5,6 +5,13 @@ body {
     margin: 0;
     box-sizing: border-box;
     min-width: 329px;
+    width: 90%;
+    margin: 30px auto;
+}
+
+a {
+    text-decoration: none;
+    color: black;
 }
 
 .header-index {
@@ -13,6 +20,7 @@ body {
     justify-content: space-between;
     align-items: center;
     height: 90px;
+
 }
 
 .header-index h1 {
@@ -23,19 +31,16 @@ body {
     color: #901C1C;
 }
 
-a {
-    text-decoration: none;
-    color: black;
-}
+
 
 .logo {
     height: 50px;
-    margin-left: 100px;
+    /* margin-left: 100px; */
 }
 
 .photographer_section {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 13rem 1fr 14rem;
     gap: 70px;
     margin-top: 100px;
 }
@@ -95,9 +100,11 @@ a {
         display: grid;
         grid-template-columns: 1fr;
     }
+
     .logo {
         margin: 0
     }
+
     .header-index {
         display: grid;
         grid-template-columns: 1fr;

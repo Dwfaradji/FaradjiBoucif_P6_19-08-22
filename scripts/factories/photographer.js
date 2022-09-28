@@ -1,6 +1,11 @@
 import data from "../utils/dataPhotographe.js";
-const dataPhotographe = await data();
 
+const dataPhotographe = await data();
+/**
+ *Construction HTML de la page d'acceuil
+ * @param {Async} data
+ * @returns {HTMLElement}
+ */
 export default function photographerFactory(data) {
     const { name, portrait, city, country, tagline, price, id } = data;
     const picture = `assets/photographers/${portrait}`;

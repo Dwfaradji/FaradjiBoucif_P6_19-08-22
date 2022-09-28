@@ -1,3 +1,6 @@
+/**
+ * @param {Object} info - Recupere le name, city, country, tagline, portrait
+ */
 export default function displayDomSectionInfoPhotographer(info) {
     const picturePhotographe = `./assets/photographers/${info.portrait}`;
     const header = document.querySelector(".photograph-header");
@@ -9,5 +12,4 @@ export default function displayDomSectionInfoPhotographer(info) {
       </div>
       <button class="contact_button btn-hover">Contactez-moi</button>
       <img src="${picturePhotographe}" alt="${info.name}">`;
-    return;
 }

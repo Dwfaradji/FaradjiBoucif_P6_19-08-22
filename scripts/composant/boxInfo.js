@@ -1,4 +1,10 @@
 let countTotalLike = 0;
+/**
+ * Construction de la box qui contient le nombre total de 
+ * likes et le prix 
+ * @param {ElementArray} info - element tableau de arrayInfo
+ * @param {ElementArray} arrayMedia -Tableau avec les media de tous les photographes
+ */
 export default class BoxInfo {
     constructor(info, arrayMedia) {
         this.displayCountTotalLikes(arrayMedia);
